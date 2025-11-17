@@ -8,14 +8,16 @@ const Dashboard = () => {
     const {data: totalAmountList} = useGetPaymentList()
 
     // 전체 거래내역을 통한 총 결제 금액 연산
-    const totalAmount = useMemo(() => {
-        if (!totalAmountList) return 0;
+    const {totalAmount,length} = useMemo(() => {
+        if (!totalAmountList) return { totalAmount: 0, length: 0 }
     
         const temp = totalAmountList.data.filter((e) => e.amount);
     
-        const sum = temp.reduce((acc, cur) => acc + Number(cur.amount), 0);
+        const totalAmount = temp.reduce((acc, cur) => acc + Number(cur.amount), 0);
+
+        const length = totalAmountList.data.length
     
-        return sum;
+        return {totalAmount: totalAmount, length: length};
       }, [totalAmountList]); 
     
       if (!totalAmountList) return null;
@@ -29,7 +31,7 @@ const Dashboard = () => {
             />
             <PaymentCard
             title="총 결제 회수"
-            value="2000000"
+            value={`${length.toLocaleString()}회`}
             />
             <PaymentCard
             title="성공률"
