@@ -10,7 +10,7 @@ const AppRouter = createBrowserRouter([
             
         },
         children:[
-            {
+            {   index: true,
                 element:<Dashboard/>
             }]
 }])
