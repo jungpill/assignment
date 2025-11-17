@@ -1,12 +1,15 @@
 import styled from "styled-components"
 import { useEffect, useState } from "react"
-import { useGetPaymentList } from "../services/api"
+import TotalAmount from "../components/dashboard/TotalAmount"
 
 const Dashboard = () => {
 
     return(
         <DashboardContainer>
-            dasd
+            <TotalAmount
+            title="총 매출액"
+            value="2000000"
+            />
         </DashboardContainer>
     )
 }
