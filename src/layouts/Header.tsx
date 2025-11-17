@@ -14,9 +14,12 @@ const Header = () => {
 export default Header;
 
 const HeaderLayout = styled.div`
-    height: 200px;
+    display: flex;
+    align-items: center;
+    height: 80px;
     width: 100vw;
     padding: 12px 20px;
+    box-sizing: border-box;
 `
 
 const Title = styled.h2`
