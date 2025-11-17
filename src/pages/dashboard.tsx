@@ -1,15 +1,49 @@
 import styled from "styled-components"
-import { useEffect, useState } from "react"
-import TotalAmount from "../components/dashboard/TotalAmount"
+import { useMemo, useState } from "react"
+import PaymentCard from "../components/dashboard/PaymentCard"
+import { useGetPaymentList } from "../services/api"
 
 const Dashboard = () => {
 
+    const {data: totalAmountList} = useGetPaymentList()
+
+    // 전체 거래내역을 통한 총 결제 금액 연산
+    const totalAmount = useMemo(() => {
+        if (!totalAmountList) return 0;
+    
+        const temp = totalAmountList.data.filter((e) => e.amount);
+    
+        const sum = temp.reduce((acc, cur) => acc + Number(cur.amount), 0);
+    
+        return sum;
+      }, [totalAmountList]); 
+    
+      if (!totalAmountList) return null;
+      
     return(
         <DashboardContainer>
-            <TotalAmount
-            title="총 매출액"
+            <RowWrapper>
+            <PaymentCard
+            title="총 결제 금액"
+            value={`${totalAmount.toLocaleString()}원`}
+            />
+            <PaymentCard
+            title="총 결제 회수"
             value="2000000"
             />
+            <PaymentCard
+            title="성공률"
+            value="2000000"
+            />
+            <PaymentCard
+            title="취소 비율"
+            value="2000000"
+            />
+            </RowWrapper>
+
+            <GridWrapper>
+                
+            </GridWrapper>
         </DashboardContainer>
     )
 }
@@ -21,6 +55,16 @@ const DashboardContainer = styled.div`
     height: 100%;
     padding: 22px 30px;
     box-sizing: border-box;
+    background: #F9FAFB;
+`
+
+const RowWrapper = styled.div`
+    display: flex;
+    width: 100%;
+    border-radius: 80px;
+`
+
+const GridWrapper = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-areas:

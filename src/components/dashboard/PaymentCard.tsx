@@ -6,12 +6,10 @@ interface Props {
     value: string
 }
 
-const TotalAmount = ({
+const PaymentCard = ({
     title,
     value
     } : Props) => {
-
-    value = new Intl.NumberFormat('ko-KR').format(Number(value))
 
     return(
         <TotalAmountContainer>
@@ -25,7 +23,7 @@ const TotalAmount = ({
     )
 }
 
-export default TotalAmount;
+export default PaymentCard;
 
 const TotalAmountContainer = styled.div`
     display: flex;
@@ -33,6 +31,10 @@ const TotalAmountContainer = styled.div`
     width: 100%;
     padding: 12px;
     box-sizing: border-box;
+    background: #fff;
+    align-items: center;
+    height: 100px;
+    border: none;
 `
 
 const Title = styled.div`

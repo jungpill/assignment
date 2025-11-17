@@ -5,13 +5,17 @@ export type PayType = 'ONLINE' | 'DEVICE' | 'MOBILE' | 'VACT' | 'BILLING'
 export type Pending = '"PENDING' | '"SUCCESS' | 'FAILED' | 'CANCELLED'
 
 interface PaymentListType {
-    paymentCode: string;
-    mchtCode: string
-    amount: string
-    currency: string
-    payType: PayType
-    status: Pending
-    paymentAt: string
+    data: [
+        {
+            paymentCode: string
+            mchtCode: string
+            amount: string
+            currency: string
+            payType: PayType
+            status: Pending
+            paymentAt: string
+        }
+    ]
 }
 
 const getpaymenyList = (signal?: AbortSignal) => {

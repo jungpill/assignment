@@ -21,6 +21,6 @@ export default Layout
 const LayoutContainer = styled.div`
     display: flex;
     height: calc(100vh - 80px);
-    width: calc(100vw - 200px);
+    width: calc(100vw - 200px)px;
     box-sizing: border-box;
 `
