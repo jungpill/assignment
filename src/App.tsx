@@ -1,12 +1,11 @@
-import { useState } from 'react'
-import Layout from './layouts/Layout'
+import { RouterProvider } from 'react-router-dom';
+import AppRouter from './AppRouter';
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <Layout/>
+      <RouterProvider router={AppRouter}/>
     </>
   )
 }
