@@ -1,13 +1,8 @@
 import styled from "styled-components"
 import { useEffect, useState } from "react"
-import { getPaymenyList } from "../services/api"
+import { useGetPaymentList } from "../services/api"
 
 const Dashboard = () => {
-
-    useEffect(() => {
-        const res = getPaymenyList()
-        console.log(res)
-    },[])
 
     return(
         <DashboardContainer>

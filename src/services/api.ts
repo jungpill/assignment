@@ -1,7 +1,8 @@
 import { http } from './common';
+import { useQuery } from '@tanstack/react-query'
 
-type PayType = 'ONLINE' | 'DEVICE' | 'MOBILE' | 'VACT' | 'BILLING'
-type Pending = '"PENDING' | '"SUCCESS' | 'FAILED' | 'CANCELLED'
+export type PayType = 'ONLINE' | 'DEVICE' | 'MOBILE' | 'VACT' | 'BILLING'
+export type Pending = '"PENDING' | '"SUCCESS' | 'FAILED' | 'CANCELLED'
 
 interface PaymentListType {
     paymentCode: string;
@@ -13,12 +14,14 @@ interface PaymentListType {
     paymentAt: string
 }
 
-export const getPaymenyList = async() => {
-    try{
-        const res = await http.get('v1/payments/list')
-        console.log(res.data)
-        return res.data
-    }catch(err){
-        throw(err)
-    }
+const getpaymenyList = (signal?: AbortSignal) => {
+    return http.get<PaymentListType>('payments/list', {signal})
+}
+
+export const useGetPaymentList = () => {
+    return useQuery({
+        queryKey: ['dashboard'],
+        queryFn: ({ signal }) => getpaymenyList(signal).then(res => res.data),
+        staleTime: 5 * 60 * 1000,
+    })
 }
