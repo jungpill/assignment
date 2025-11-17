@@ -20,6 +20,7 @@ const HeaderLayout = styled.div`
     width: 100vw;
     padding: 12px 20px;
     box-sizing: border-box;
+    border-bottom: 1px solid #E5E7EB;
 `
 
 const Title = styled.h2`

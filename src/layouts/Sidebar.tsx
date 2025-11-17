@@ -37,8 +37,8 @@ export default Sidebar
 
 const SidebarWrapper = styled.div`
     display: flex;
-    max-width: 150px;
-    width: 150px;
+    max-width: 200px;
+    width: 200px;
     flex-direction: column;
     gap: 6px;
 `
@@ -49,6 +49,7 @@ const MenuItem = styled.div<{$selected: boolean}>`
     font-size: 22px;
     cursor: pointer;
     align-items: center;
+    justify-content: center;
     padding: 10px 12px;
     box-sizing: border-box;
     color: ${props => props.$selected ? '#000' : '#3B82F6'};
