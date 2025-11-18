@@ -4,7 +4,7 @@ import PaymentCard from "../components/dashboard/PaymentCard"
 import { useGetPaymentList } from "../services/api"
 import Doughnutchart from '../components/dashboard/Doughnutchart'
 import type {PaymentStatus, PayType, PayLabel} from '../services/api'
-import type { Chart } from "chart.js"
+import PaymentHistoryTable from "../components/dashboard/PaymentHistoryTable"
 
 export type ChartItem = {
   type: PayType;
@@ -104,6 +104,10 @@ const Dashboard = () => {
                 chartData={status.chartData as ChartItem[]}
             />
             </RowWrapper>
+
+            <RowWrapper>
+            <PaymentHistoryTable/>
+            </RowWrapper>
             
         </DashboardContainer>
     )
@@ -117,6 +121,7 @@ const DashboardContainer = styled.div`
     padding: 22px 30px;
     box-sizing: border-box;
     background: #F9FAFB;
+    overflow-X: hidden;
 `
 
 const RowWrapper = styled.div`
