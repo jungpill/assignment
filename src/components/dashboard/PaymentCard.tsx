@@ -35,6 +35,7 @@ const TotalAmountContainer = styled.div`
     align-items: center;
     height: 100px;
     border: none;
+    gap: 3px;
 `
 
 const Title = styled.div`
