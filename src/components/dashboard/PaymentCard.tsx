@@ -36,6 +36,7 @@ const TotalAmountContainer = styled.div`
     height: 100px;
     border: none;
     gap: 3px;
+    border-radius: 8px;
 `
 
 const Title = styled.div`
