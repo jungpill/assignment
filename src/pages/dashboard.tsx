@@ -6,33 +6,40 @@ import { useGetPaymentList } from "../services/api"
 const Dashboard = () => {
 
     const {data: totalAmountList} = useGetPaymentList()
-    console.log("totalAmountList", totalAmountList)
+
     // 전체 거래내역을 통한 총 결제 금액 연산
-    const {totalAmount,length, successRate, canceledCount} = useMemo(() => {
-        if (!totalAmountList) return { totalAmount: 0, length: 0, successRate: 0 };
+    const {totalAmount,length, successRate, canceledRate} = useMemo(() => {
+        if (!totalAmountList) return { 
+            totalAmount: 0, 
+            length: 0, 
+            successRate: 0, 
+            canceledRate: 0
+         };
     
-        const temp = totalAmountList.data.filter((e) => e.amount);
+        let totalAmount = 0;
+        let successCount = 0;
+        let canceledCount = 0;
+
+        totalAmountList.data.forEach((payment: { amount: number; status: string }) => {
+            totalAmount += Number(payment.amount);
     
-        const totalAmount = temp.reduce((acc, cur) => acc + Number(cur.amount), 0);
-
-        const successCount = temp.filter((e) => e.status === "SUCCESS").length;
-        const successRate = (successCount / temp.length) * 100;
-
-        const canceledCount = temp.filter((e) => e.status === "CANCELLED").length;
-        const cancelRate = (canceledCount / temp.length) * 100;
-
+            if(payment.status === "SUCCESS") successCount++;
+            if(payment.status === "CANCELLED") canceledCount++;
+        })
+                
         const length = totalAmountList.data.length
+
+        const successRate = length > 0 ? (successCount / length) * 100 : 0;
+        const cancelRate = length > 0 ? (canceledCount / length) * 100 : 0;
     
         return {
             totalAmount: totalAmount, 
             length: length, 
             successRate: successRate.toFixed(0),
-            canceledCount: canceledCount.toFixed(0),
+            canceledRate: cancelRate.toFixed(0),
         };
       }, [totalAmountList]); 
-    
-      if (!totalAmountList) return null;
-      console.log(canceledCount)
+      
     return(
         <DashboardContainer>
             <RowWrapper>
@@ -50,7 +57,7 @@ const Dashboard = () => {
                 />
                 <PaymentCard
                 title="취소 비율"
-                value={`${canceledCount}%`}
+                value={`${canceledRate}%`}
                 />
             </RowWrapper>
 
