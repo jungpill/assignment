@@ -18,7 +18,7 @@ const PaymentHistoryTable = () => {
             </TableHeader>
 
             <Body>
-            {totalAmountList.data.slice(95).map((r,idx) => (
+            {totalAmountList.data.map((r,idx) => (
             <DataRow key={r.paymentCode + idx}>
             <span>{r.paymentCode}</span>
             <span>{r.paymentAt.slice(0,10)}</span>

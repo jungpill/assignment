@@ -89,11 +89,11 @@ const Dashboard = () => {
                 value={`${status.length.toLocaleString()}건`}
                 />
                 <PaymentCard
-                title="성공률"
+                title="결제 성공률"
                 value={`${status.successRate}%`}
                 />
                 <PaymentCard
-                title="취소 비율"
+                title="결제 취소 비율"
                 value={`${status.cancelRate}%`}
                 />
                 
