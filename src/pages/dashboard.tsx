@@ -3,11 +3,13 @@ import { useMemo, useState } from "react"
 import PaymentCard from "../components/dashboard/PaymentCard"
 import { useGetPaymentList } from "../services/api"
 import Doughnutchart from '../components/dashboard/Doughnutchart'
-import type {PayType} from '../services/api'
+import type {PaymentStatus, PayType, PayLabel} from '../services/api'
+import type { Chart } from "chart.js"
 
 export type ChartItem = {
   type: PayType;
   value: number;
+  label: PayLabel
 };
 
 const Dashboard = () => {
@@ -23,15 +25,14 @@ const Dashboard = () => {
     };
     
     console.log(totalAmountList)
-    
 
-    // 전체 거래내역을 통한 총 결제 금액 연산
+    // 전체 거래내역을 통한 총 결제 금액, 횟수, 성공률, 취소 비율, 계산 및 차트에 사용될 데이터 가공
     const {totalAmount,length, successCount, canceledCount, chartData} = useMemo(() => {
         if (!totalAmountList) return { 
             totalAmount: 0, 
             length: 0, 
-            successRate: 0, 
-            canceledRate: 0
+            successCount: 0, 
+            canceledCount: 0,
          };
     
         let totalAmount = 0;
@@ -48,14 +49,14 @@ const Dashboard = () => {
                 
         const length = totalAmountList.data.length
 
-        const chartData = [{
+        const chartData:ChartItem[] = [{
             type: 'ONLINE',
             label: '온라인',
             value: counts.ONLINE,
         },
         {
             type: 'DEVICE',
-            label: '디바이스',
+            label: '단말기',
             value: counts.DEVICE,
         },
         {
@@ -70,7 +71,7 @@ const Dashboard = () => {
         },
         {
             type: 'BILLING',
-            label: '빌링',
+            label: '정기결제',
             value: counts.BILLING,
         }]
     
@@ -86,9 +87,9 @@ const Dashboard = () => {
       if (isLoading) return null;
       // 추후 paymentCard에 icon 추가
 
-        const successRate = length > 0 ? (successCount / length) * 100 : 0;
-        const cancelRate = length > 0 ? (canceledCount / length) * 100 : 0;
-        console.log(chartData)
+    const successRate = length > 0 ? (successCount  / length) * 100 : 0;
+    const cancelRate = length > 0 ? (canceledCount / length) * 100 : 0;
+    console.log(chartData)
     return(
         <DashboardContainer>
             <RowWrapper>
@@ -112,7 +113,7 @@ const Dashboard = () => {
             </RowWrapper>
 
             <Doughnutchart
-            
+            chartData={chartData as ChartItem[]}
             />
 
             <GridWrapper>

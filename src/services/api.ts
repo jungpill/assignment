@@ -2,7 +2,10 @@ import { http } from './common';
 import { useQuery } from '@tanstack/react-query'
 
 export type PayType = 'ONLINE' | 'DEVICE' | 'MOBILE' | 'VACT' | 'BILLING'
-export type Pending = '"PENDING' | '"SUCCESS' | 'FAILED' | 'CANCELLED'
+export type PayLabel = '온라인' | '단말기' | '모바일' | '가상계좌' | '정기결제'
+
+export type PaymentStatus = 'PENDING' | 'SUCCESS' | 'FAILED' | 'CANCELLED'
+export type PaymentLabel = '결제 대기' | '결제 완료' | '결제 실패' | '환불 완료'
 
 interface PaymentListType {
     data: [
@@ -12,7 +15,7 @@ interface PaymentListType {
             amount: string
             currency: string
             payType: PayType
-            status: Pending
+            status: PaymentStatus
             paymentAt: string
         }
     ]

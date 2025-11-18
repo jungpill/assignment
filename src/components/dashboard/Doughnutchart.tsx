@@ -7,6 +7,7 @@ import {
   Legend,
   Title,
 } from "chart.js";
+import { type ChartItem } from "../../pages/dashboard";
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title,);
 
@@ -18,7 +19,13 @@ const chartColor = [
     '#CFECC9',
 ]
 
-const Doughnutchart = () => {
+interface Props {
+    chartData: ChartItem[]
+}
+
+const Doughnutchart = ({
+    chartData
+    }: Props) => {
 
     
 
