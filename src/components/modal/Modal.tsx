@@ -1,12 +1,28 @@
 import styled from "styled-components";
+import { useModalStore } from '../../stores/ModalStore'
+import { useState,useEffect } from "react";
 
 const ANIM_MS = 300;
 
 const Modal = () => {
 
+    const modalTitle = useModalStore(p => p.title)
+    const modalContent = useModalStore(p => p.content)
+    const modalFooter = useModalStore(p => p.footer)
+    const modalStatus = useModalStore(p => p.open)
+    const modalWidth = useModalStore(p => p.width)
+    const setModalField = useModalStore(p => p.setField)
+    
     return(
         <ModalBackdrop>
-            
+            <ModalLayout
+            $open={modalStatus}
+            $modalWidth={modalWidth ?? '440px'}
+            >
+                {modalTitle}
+                {modalContent}
+                {modalFooter}
+            </ModalLayout>
         </ModalBackdrop>
     )
 }
@@ -23,7 +39,7 @@ const ModalBackdrop = styled.div`
 
 `
 
-const ModalLayout = styled.div<{ $open: boolean , $modalwidth: string, $modalpadding: string}>`
+const ModalLayout = styled.div<{ $open: boolean , $modalWidth: string,}>`
     outline: none;
     opacity: ${({ $open }) => ($open ? 1 : 0)};
     position: absolute;
@@ -32,8 +48,7 @@ const ModalLayout = styled.div<{ $open: boolean , $modalwidth: string, $modalpad
     transform: translate(-50%,-50%);
     background-color: #fff;
     border-radius: 20px;
-    padding: ${({$modalpadding})=>($modalpadding)};
-    width: ${({$modalwidth})=>($modalwidth)};
+    width: ${({$modalWidth})=>($modalWidth)};
     box-sizing: border-box;
   
     transition:
