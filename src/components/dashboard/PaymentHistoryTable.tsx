@@ -1,30 +1,29 @@
 import styled from "styled-components";
-import { useGetPaymentList } from "../../services/api";
+import { useGetMerchantsList } from "../../services/api";
 
 const PaymentHistoryTable = () => {
 
-    const {data: totalAmountList, isLoading} = useGetPaymentList()
+    const {data: totalAmountList, isLoading} = useGetMerchantsList()
 
     if(isLoading || !totalAmountList) return null;
-
+    console.log(totalAmountList)
     return(
         <Container>
             <TableHeader>
-                <HeaderCell style={{paddingLeft: '40px'}}>결제코드</HeaderCell>
-                <HeaderCell style={{paddingLeft: '40px'}}>결제일</HeaderCell>
-                <HeaderCell style={{justifyContent: 'center'}}>결제 방식</HeaderCell>
-                <HeaderCell style={{justifyContent: 'center'}}>금액</HeaderCell>
+                <HeaderCell style={{paddingLeft: '40px'}}>코드</HeaderCell>
+                <HeaderCell style={{paddingLeft: '40px'}}>매장명</HeaderCell>
+                <HeaderCell style={{justifyContent: 'center'}}>가맹정 상태</HeaderCell>
+                <HeaderCell style={{justifyContent: 'center'}}>업종</HeaderCell>
                 <HeaderCell style={{justifyContent: 'center'}}>상태</HeaderCell>
             </TableHeader>
 
             <Body>
             {totalAmountList.data.map((r,idx) => (
-            <DataRow key={r.paymentCode + idx}>
-            <span>{r.paymentCode}</span>
-            <span>{r.paymentAt.slice(0,10)}</span>
-            <span>{r.payType}</span>
-            <span>{Number(r.amount).toLocaleString()}</span>
+            <DataRow key={r.mchtCode + idx}>
+            <span>{r.mchtCode}</span>
+            <span>{r.mchtName}</span>
             <span>{r.status}</span>
+            <span>{r.bizType}</span>
             
             </DataRow>
             ))}
@@ -87,5 +86,4 @@ const DataRow = styled.div`
     align-items: center;
     border-bottom: 1px solid #E5E7EB;
     cursor: pointer;
-    margin-left: 10px;
 `;
