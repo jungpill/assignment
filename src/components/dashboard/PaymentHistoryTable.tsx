@@ -10,7 +10,7 @@ const PaymentHistoryTable = () => {
     if(isLoading || !totalAmountList) return null;
 
     const showDetailModal = (code: string) => {
-        openDetailModal()
+        openDetailModal(code)
     }
     
     return(
@@ -24,8 +24,8 @@ const PaymentHistoryTable = () => {
 
             <Body>
                 {totalAmountList.data.map((r) => (
-                <DataRow key={r.mchtCode } >
-                <span onClick={() => showDetailModal(r.mchtCode)}>{r.mchtCode}</span>
+                <DataRow key={r.mchtCode} onClick={() => showDetailModal(r.mchtCode)}>
+                <span>{r.mchtCode}</span>
                 <span>{r.mchtName}</span>
                 <span>{r.status}</span>
                 <span>{r.bizType}</span>

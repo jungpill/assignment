@@ -9,8 +9,7 @@ export type PaymentLabel = '결제 대기' | '결제 완료' | '결제 실패' |
 
 export type MerchantStatus = 'READY' | 'ACTIVE' | 'INACTIVE' | 'CLOSED'
 
-
-
+const FIVE_MINUTES = 5 * 60 * 1000;
 
 export interface PaymentListType {
     data: [
@@ -37,7 +36,23 @@ export interface MerchantsListType {
     ]
 }
 
-const getpaymenyList = (signal?: AbortSignal) => {
+export interface DetailMerchantsType{
+    data: 
+        {
+            mchtCode: string
+            mchtName: string
+            status: MerchantStatus
+            bizType: string
+            bizNo: string
+            address: string
+            phone: string
+            email: string
+            registeredAt: string
+            updateAt: string
+        }
+}
+
+const getpaymentList = (signal?: AbortSignal) => {
     return http.get<PaymentListType>('payments/list', {signal})
 }
 
@@ -45,11 +60,15 @@ const getMerchantsList = (signal?: AbortSignal) => {
     return http.get<MerchantsListType>('merchants/list', {signal})
 }
 
+const getDetailMerchants = ({signal, code} : {signal?:AbortSignal, code: string}) => {
+    return http.get<DetailMerchantsType>(`/merchants/details/${code}`, {signal})
+}
+
 export const useGetPaymentList = () => {
     return useQuery({
         queryKey: ['dashboard'],
-        queryFn: ({ signal }) => getpaymenyList(signal).then(res => res.data),
-        staleTime: 5 * 60 * 1000,
+        queryFn: ({ signal }) => getpaymentList(signal).then(res => res.data),
+        staleTime: FIVE_MINUTES,
     })
 }
 
@@ -57,6 +76,14 @@ export const useGetMerchantsList = () => {
     return useQuery({
         queryKey: ['merchants'],
         queryFn: ({ signal }) => getMerchantsList(signal).then(res => res.data),
-        staleTime: 5 * 60 * 1000,
+        staleTime: FIVE_MINUTES,
+    })
+}
+
+export const useGetDetailMerchants = (code:string) => {
+    return useQuery({
+        queryKey: ['merchants', 'detail'],
+        queryFn: ({signal}) => getDetailMerchants({signal,code}).then(res => res.data),
+        staleTime: FIVE_MINUTES,
     })
 }

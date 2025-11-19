@@ -1,29 +1,66 @@
 import { useModalStore } from "../../stores/ModalStore";
 import styled from "styled-components";
 import { AppImage } from "../../assets/images/images";
+import { useGetDetailMerchants } from "../../services/api";
 
-export const openDetailModal = () => {
+export const openDetailModal = (code:string) => {
     
     const { setField } = useModalStore.getState()
-
+    
     setField('open', true)
-    setField('children', <DetailModal/>)
+    setField('children', <DetailModal code={code}/>)
 }
 
-export const DetailModal = () => {
+export const DetailModal = ({code}:{code:string}) => {
 
+    const {data: detailData, isLoading, error} = useGetDetailMerchants(code)
+    console.log(detailData?.data)
     const reset = useModalStore(p => p.reset)
-    const data = useModalStore(p => p.data)
     
+    if (isLoading) return null;
+    if (error) return null;
+    if (!detailData?.data) return null;
+
     return(
         <DetailModalContainer>
             <Header>
-                <Title>ㅇㅁㄴㅇ</Title>
+                <Title>{detailData.data.mchtName}</Title>
                 <AppImage name="XIcon" onClick={reset} customStyle={{cursor: 'pointer'}}/>
             </Header>
 
             <Body>
-                asdasd
+                <Cell>
+                    <AppImage 
+                    name="MarkerIcon" 
+                    fill="black" 
+                    customStyle={{width: 25, height: 25, margin: 0}}
+                    /> 
+                    {detailData.data.address}
+                </Cell>
+
+                <Cell>
+                    <AppImage 
+                    name="PhoneIcon" 
+                    customStyle={{width: 25, height: 20, margin: 0}}
+                    />
+                    {detailData.data.phone}
+                </Cell>
+
+                <Cell>
+                    <AppImage 
+                    name="MailIcon"  
+                    customStyle={{width: 25, height: 20, margin: 0}}
+                    />
+                    {detailData.data.email}
+                </Cell>
+
+                <Cell>
+                    <AppImage 
+                    name="JobIcon"  
+                    customStyle={{width: 25, height: 20, margin: 0}}
+                    />
+                    {detailData.data.bizType}
+                </Cell>
             </Body>
 
             <Footer>
@@ -57,16 +94,25 @@ const Header = styled.div`
 
 const Body = styled.div`
     display: flex;
-
+    flex-direction: column;
+    gap: 12px;
 `
 
 const Footer = styled.div`
     display: flex;
     align-items: center;
     gap: 12px;
-    justfiy-content: flex-end;
+    justify-content: flex-end;
+    width: 100%;
 `
 
 const Title = styled.h3`
     margin: 0;
+`
+
+const Cell = styled.span`
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 `
