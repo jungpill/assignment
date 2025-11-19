@@ -1,23 +1,21 @@
 import { create } from "zustand";
 
 interface ModalState {
-    title: string
-    content: any
-    footer: any
-    width: string | null
+    data: any
     open: boolean
     setField : (field: keyof ModalState, value: any) => void 
+    reset: () => void;
+    children: any;
 }
 
 const defaultValue ={
-    title : '',
-    content: '',
-    footer: '',
-    width: null,
+    data: '',
     open: false,
+    children: ''
 }
 
 export const useModalStore = create<ModalState>((set)=>({
     ...defaultValue,
     setField : (field,value)=>set((state)=>({...state,[field]:value})),
+    reset: () => set(() =>({...defaultValue}))
 }))

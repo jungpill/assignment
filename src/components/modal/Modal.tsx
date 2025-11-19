@@ -6,22 +6,26 @@ const ANIM_MS = 300;
 
 const Modal = () => {
 
-    const modalTitle = useModalStore(p => p.title)
-    const modalContent = useModalStore(p => p.content)
-    const modalFooter = useModalStore(p => p.footer)
+    const children = useModalStore(p => p.children)
     const modalStatus = useModalStore(p => p.open)
-    const modalWidth = useModalStore(p => p.width)
     const setModalField = useModalStore(p => p.setField)
+
+    const closeModal = () => {
+        setModalField('open', false)
+    }
+
+   
     
     return(
-        <ModalBackdrop>
+        <ModalBackdrop
+        $open={modalStatus}
+        onClick={closeModal}
+        >
             <ModalLayout
             $open={modalStatus}
-            $modalWidth={modalWidth ?? '440px'}
+            $modalWidth={'440px'}
             >
-                {modalTitle}
-                {modalContent}
-                {modalFooter}
+                {children}
             </ModalLayout>
         </ModalBackdrop>
     )
@@ -29,14 +33,18 @@ const Modal = () => {
 
 export default Modal;
 
-const ModalBackdrop = styled.div`
+const ModalBackdrop = styled.div<{$open: boolean}>`
     position: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
     background: rgba(0,0,0, 0.4);
     z-index: 1001;
+    inset: 0;
 
+    opacity: ${({ $open }) => ($open ? 1 : 0)};
+    transition: opacity ${ANIM_MS}ms ease;
+    pointer-events: ${props => props.$open ? 'auto' : 'none'}
 `
 
 const ModalLayout = styled.div<{ $open: boolean , $modalWidth: string,}>`

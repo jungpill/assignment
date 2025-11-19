@@ -1,32 +1,37 @@
 import styled from "styled-components";
 import { useGetMerchantsList } from "../../services/api";
+import { openDetailModal } from "../modal/DetailModal";
+import { useModalStore } from "../../stores/ModalStore";
 
 const PaymentHistoryTable = () => {
 
     const {data: totalAmountList, isLoading} = useGetMerchantsList()
 
     if(isLoading || !totalAmountList) return null;
-    console.log(totalAmountList)
+
+    const showDetailModal = (code: string) => {
+        openDetailModal()
+    }
+    
     return(
         <Container>
             <TableHeader>
-                <HeaderCell style={{paddingLeft: '40px'}}>코드</HeaderCell>
-                <HeaderCell style={{paddingLeft: '40px'}}>매장명</HeaderCell>
+                <HeaderCell >코드</HeaderCell>
+                <HeaderCell >매장명</HeaderCell>
                 <HeaderCell style={{justifyContent: 'center'}}>가맹정 상태</HeaderCell>
                 <HeaderCell style={{justifyContent: 'center'}}>업종</HeaderCell>
-                <HeaderCell style={{justifyContent: 'center'}}>상태</HeaderCell>
             </TableHeader>
 
             <Body>
-            {totalAmountList.data.map((r,idx) => (
-            <DataRow key={r.mchtCode + idx}>
-            <span>{r.mchtCode}</span>
-            <span>{r.mchtName}</span>
-            <span>{r.status}</span>
-            <span>{r.bizType}</span>
-            
-            </DataRow>
-            ))}
+                {totalAmountList.data.map((r) => (
+                <DataRow key={r.mchtCode } >
+                <span onClick={() => showDetailModal(r.mchtCode)}>{r.mchtCode}</span>
+                <span>{r.mchtName}</span>
+                <span>{r.status}</span>
+                <span>{r.bizType}</span>
+                
+                </DataRow>
+                ))}
             </Body>
         </Container>
     )
@@ -44,11 +49,12 @@ const Container = styled.div`
     padding: 10px 20px;
     border-radius: 8px;
     box-sizing: border-box;
+    
 `;
 
 const TableHeader = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     width: 100%;
     border-bottom: 1px solid #E5E7EB;
 
@@ -58,7 +64,7 @@ const TableHeader = styled.div`
     padding: 16px 0;
     display: flex;
     align-items: center;
-    justify-self: start;
+    justify-self: center;
     }    
 `;
 
@@ -82,8 +88,9 @@ const Body = styled.div`
 
 const DataRow = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-items: center;
     border-bottom: 1px solid #E5E7EB;
     cursor: pointer;
+    align-items: center;
 `;
