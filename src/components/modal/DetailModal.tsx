@@ -2,6 +2,7 @@ import { useModalStore } from "../../stores/ModalStore";
 import styled from "styled-components";
 import { AppImage } from "../../assets/images/images";
 import { useGetDetailMerchants } from "../../services/api";
+import { ConfirmButton, CancelButton } from "../common/Button";
 
 export const openDetailModal = (code:string) => {
     
@@ -14,7 +15,7 @@ export const openDetailModal = (code:string) => {
 export const DetailModal = ({code}:{code:string}) => {
 
     const {data: detailData, isLoading, error} = useGetDetailMerchants(code)
-    console.log(detailData?.data)
+  
     const reset = useModalStore(p => p.reset)
     
     if (isLoading) return null;
@@ -64,8 +65,12 @@ export const DetailModal = ({code}:{code:string}) => {
             </Body>
 
             <Footer>
-                <div>das</div>
-                <div>das</div>
+                <ConfirmButton 
+                style={{width: 130}}
+                onClick={reset}
+                >
+                    닫기
+                </ConfirmButton>
             </Footer>
         </DetailModalContainer>
     )
