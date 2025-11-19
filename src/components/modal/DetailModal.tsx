@@ -1,5 +1,6 @@
 import { useModalStore } from "../../stores/ModalStore";
 import styled from "styled-components";
+import { AppImage } from "../../assets/images/images";
 
 export const openDetailModal = () => {
     
@@ -17,7 +18,8 @@ export const DetailModal = () => {
     return(
         <DetailModalContainer>
             <Header>
-                asdasd
+                <Title>ㅇㅁㄴㅇ</Title>
+                <AppImage name="XIcon" onClick={reset} customStyle={{cursor: 'pointer'}}/>
             </Header>
 
             <Body>
@@ -63,4 +65,8 @@ const Footer = styled.div`
     align-items: center;
     gap: 12px;
     justfiy-content: flex-end;
+`
+
+const Title = styled.h3`
+    margin: 0;
 `

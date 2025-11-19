@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useModalStore } from '../../stores/ModalStore'
-import { useState,useEffect } from "react";
+import React, { useState,useEffect, useRef } from "react";
 
 const ANIM_MS = 300;
 
@@ -10,16 +10,42 @@ const Modal = () => {
     const modalStatus = useModalStore(p => p.open)
     const setModalField = useModalStore(p => p.setField)
 
-    const closeModal = () => {
-        setModalField('open', false)
+    const [shouldRender, setShouldRender] = useState(false);
+
+    //마우스가 떨어지는곳 감지하기 위함
+    const mouseDownTarget = useRef<EventTarget | null>(null)
+
+    const closeModal = (e:React.MouseEvent) => {
+        if(e.target === e.currentTarget && mouseDownTarget.current === e.currentTarget){
+            setModalField('open', false)
+        }
     }
 
-   
-    
+    //모달 밖(overlay) 마우스 떨어지는거 감지
+    const onBackDropMouseDown = (e: React.MouseEvent) => {
+      mouseDownTarget.current = e.target;
+    };
+
+    useEffect(() => {
+    if (!modalStatus) return; 
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' || e.key === 'Esc') {
+        setModalField('open', false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [modalStatus, setModalField]);
+
     return(
         <ModalBackdrop
         $open={modalStatus}
         onClick={closeModal}
+        onMouseDown={onBackDropMouseDown}
         >
             <ModalLayout
             $open={modalStatus}
