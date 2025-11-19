@@ -14,11 +14,6 @@ export const DetailModal = () => {
     const reset = useModalStore(p => p.reset)
     const data = useModalStore(p => p.data)
     
-
-    const onClickClose = () => {
-        reset()
-    }
-    
     return(
         <DetailModalContainer>
             <Header>
@@ -56,7 +51,6 @@ const Header = styled.div`
     background: #fff;
     border-radius: 8px;
     box-sizing: border-box;
-    padding: 20px;
 `
 
 const Body = styled.div`

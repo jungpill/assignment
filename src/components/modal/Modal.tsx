@@ -23,7 +23,7 @@ const Modal = () => {
         >
             <ModalLayout
             $open={modalStatus}
-            $modalWidth={'440px'}
+            $modalWidth={'640px'}
             >
                 {children}
             </ModalLayout>
