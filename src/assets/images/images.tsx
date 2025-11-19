@@ -5,13 +5,15 @@ import MarkerIcon from './marker_icon.svg?react'
 import PhoneIcon from './phone_icon.svg?react'
 import MailIcon from './mail_icon.svg?react'
 import JobIcon from './job_icon.svg?react'
+import ArrowIcon from './ArrowRight_Icon.svg?react'
 
 const ICONS = {
   XIcon: xIcon,
   MarkerIcon: MarkerIcon,
   PhoneIcon: PhoneIcon,
   MailIcon: MailIcon,
-  JobIcon:JobIcon
+  JobIcon:JobIcon,
+  ArrowIcon: ArrowIcon
 } as const;
 
 type Props = {

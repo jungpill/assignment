@@ -1,20 +1,30 @@
 import styled from "styled-components";
 import { useGetMerchantsList } from "../../services/api";
 import { openDetailModal } from "../modal/DetailModal";
-import { useModalStore } from "../../stores/ModalStore";
+import { AppImage } from "../../assets/images/images";
+import { useNavigate } from "react-router-dom";
 
 const PaymentHistoryTable = () => {
 
     const {data: totalAmountList, isLoading} = useGetMerchantsList()
+
+    const navigate = useNavigate()
 
     if(isLoading || !totalAmountList) return null;
 
     const showDetailModal = (code: string) => {
         openDetailModal(code)
     }
-    
+
     return(
         <Container>
+            <Title>
+                관리 매장
+                <MoreButton onClick={() => navigate('/merchants-list')}>
+                    더보기
+                    <AppImage name='ArrowIcon'/>
+                </MoreButton>
+            </Title>
             <TableHeader>
                 <HeaderCell >코드</HeaderCell>
                 <HeaderCell >매장명</HeaderCell>
@@ -23,7 +33,7 @@ const PaymentHistoryTable = () => {
             </TableHeader>
 
             <Body>
-                {totalAmountList.data.map((r) => (
+                {totalAmountList.data.slice(0,3).map((r) => (
                 <DataRow key={r.mchtCode} onClick={() => showDetailModal(r.mchtCode)}>
                 <span>{r.mchtCode}</span>
                 <span>{r.mchtName}</span>
@@ -49,7 +59,6 @@ const Container = styled.div`
     padding: 10px 20px;
     border-radius: 8px;
     box-sizing: border-box;
-    
 `;
 
 const TableHeader = styled.div`
@@ -94,3 +103,29 @@ const DataRow = styled.div`
     cursor: pointer;
     align-items: center;
 `;
+
+const Title = styled.div`
+    display: flex;
+    justify-content: space-between;
+    font-size: 24px;
+    padding: 20px;
+    font-weight: 600;
+    align-items: center;
+`
+
+const MoreButton = styled.div`
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #6B7280;
+    font-size: 18px;
+    line-height: 1;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+
+    &:hover {
+        color: #374151;
+    }
+`

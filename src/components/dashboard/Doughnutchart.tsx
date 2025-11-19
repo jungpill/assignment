@@ -78,9 +78,7 @@ const Doughnutchart = ({
 
     return(
         <Container>
-            <ChartName>
-                Payment Type
-            </ChartName>
+           
            <ChartWrapper>
              <Doughnut
             ref={chartRef}
@@ -108,6 +106,7 @@ const Container = styled.div`
 
 const ChartWrapper = styled.div`
     height: 100%;
+    padding: 12px;
 `;
 
 const ChartName = styled.h2`
