@@ -9,8 +9,7 @@ const Modal = () => {
     const children = useModalStore(p => p.children)
     const modalStatus = useModalStore(p => p.open)
     const setModalField = useModalStore(p => p.setField)
-
-    const [shouldRender, setShouldRender] = useState(false);
+    const width = useModalStore(p => p.width)
 
     //마우스가 떨어지는곳 감지하기 위함
     const mouseDownTarget = useRef<EventTarget | null>(null)
@@ -49,7 +48,7 @@ const Modal = () => {
         >
             <ModalLayout
             $open={modalStatus}
-            $modalWidth={'640px'}
+            $modalWidth={width || '640px'}
             >
                 {children}
             </ModalLayout>

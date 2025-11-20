@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useRef, useEffect } from "react";
+import { openConfirmModal } from "../modal/Confirm";
 
 interface Props {
     show: boolean
@@ -34,17 +35,27 @@ const ProfileMenu = ({
 
     }, [show, onClose])
 
+    const openDeleteModal = (e:React.MouseEvent) => {
+        e.stopPropagation
+        openConfirmModal({title: '선택 매장이 삭제됩니다', content: '정말 삭제하시겠습니까?', eventHandler: () => console.log('dd')})
+    }
+
+    // const openEditModal = (e:React.MouseEvent) => {
+    //     e.stopPropagation
+    //     openConfirmModal({title: '선택 매장을 수정합니다.', content: '정말 삭제하시겠습니까?', eventHandler: () => console.log('dd')})
+    // }
+
     return(
         <Container
         $show={show}
         ref={ref}
         >
-            <Text >
+            <Text onClick={openDeleteModal}>
                 삭제하기
             </Text>
-            <Text>
+            {/* <Text onClick={openEditModal}>
                 수정하기
-            </Text>
+            </Text> */}
         </Container>
     )
 }
@@ -61,18 +72,18 @@ const Container = styled.div<{$show: boolean}>`
     opacity: ${(props) => props.$show ? 1 : 0};
     background: #fff;
     border-radius: 8px;
-    top: 55px;
-    right: 30%;
+    top: 30px;
+    right: 60%;
     width: 100px;
     box-sizing: border-box;
     box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.1);
-
+    gap: 4px;
     transition: opacity 0.5s;
     pointer-events: ${(props) => (props.$show ? "auto" : "none")};
 `
 
 const Text = styled.p`
-    
+    margin: 0;
     font-size: 14px;   
     color: #000014;
     cursor: pointer;

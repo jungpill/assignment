@@ -3,6 +3,7 @@ import { create } from "zustand";
 interface ModalState {
     data: any
     open: boolean
+    width?: string
     setField : (field: keyof ModalState, value: any) => void 
     reset: () => void;
     children: any;
@@ -11,6 +12,7 @@ interface ModalState {
 const defaultValue ={
     data: '',
     open: false,
+    width: '',
     children: ''
 }
 

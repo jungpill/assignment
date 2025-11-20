@@ -12,7 +12,7 @@ export const openDetailModal = (code:string) => {
     setField('children', <DetailModal code={code}/>)
 }
 
-export const DetailModal = ({code}:{code:string}) => {
+const DetailModal = ({code}:{code:string}) => {
 
     const {data: detailData, isLoading, error} = useGetDetailMerchants(code)
   
