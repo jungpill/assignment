@@ -15,7 +15,7 @@ interface Props {
 const MerchantsListTable = ({
     active,
     merchants,
-    handleDeleteMerchant
+    handleDeleteMerchant,
     }: Props) => {
 
     const [openMenu, setOpenMenu] = useState<number | null>(null)
@@ -46,12 +46,6 @@ const MerchantsListTable = ({
                 <span>
                     매장 관리
                 </span>
-
-                <ConfirmButton
-                style={{width: '88px'}}
-                >
-                    매장 추가
-                </ConfirmButton>    
             </Title>
             <TableHeader>
                 <HeaderCell >코드</HeaderCell>

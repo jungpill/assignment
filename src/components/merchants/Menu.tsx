@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useRef, useEffect } from "react";
-import { openDeleteModal, openEditModal } from "../modal/Confirm";
+import { openDeleteModal } from "../modal/Confirm";
+import { type Merchant } from "../../services/api";
 
 interface Props {
     show: boolean
@@ -15,7 +16,7 @@ const Menu = ({
     onClose,
     parentRef,
     mchtCode,
-    handleDeleteMerchant
+    handleDeleteMerchant,
     }: Props) => {
 
     const ref = useRef<HTMLDivElement>(null);
@@ -51,10 +52,16 @@ const Menu = ({
   });
     }
 
-    const handleEditModal = (e:React.MouseEvent) => {
-        e.stopPropagation
-        openEditModal({eventHandler: () => console.log('s')})
-    }
+    // const handleEditModal = (e:React.MouseEvent) => {
+    //     e.stopPropagation
+    //     openEditModal({
+    //         merchant, 
+    //         eventHandler: (updatedData) => {
+    //             handleUpdateMerchant(updatedData);
+    //             onClose();
+    //         },
+    //     });
+    // }
 
     return(
         <Container
@@ -64,9 +71,9 @@ const Menu = ({
             <Text onClick={handleDeleteModal}>
                 삭제하기
             </Text>
-            <Text onClick={handleEditModal}>
+            {/* <Text onClick={handleEditModal}>
                 수정하기
-            </Text>
+            </Text> */}
         </Container>
     )
 }

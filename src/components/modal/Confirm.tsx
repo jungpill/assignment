@@ -5,7 +5,8 @@ import { ConfirmButton, CancelButton } from "../common/Button";
 import { useAlertStore } from "../../stores/useAlertStore";
 import SelectDropdown from "../common/Dropdown";
 import LabelInput from "../common/Input";
-import { useState, useCallback } from "react";
+import { useState } from "react";
+import { type Merchant } from "../../services/api";
 
 interface DeleteModalProps {
     title: string
@@ -14,7 +15,8 @@ interface DeleteModalProps {
 }
 
 interface EditModalProps {
-    eventHandler: () => void
+    merchant: Merchant
+    eventHandler: (data: Partial<Merchant> & { mchtCode: string }) => void;
 }
 
 export const openDeleteModal = ({
@@ -30,16 +32,18 @@ export const openDeleteModal = ({
     setField('children', <ConfirmModal title={title} content={content} eventHandler={eventHandler}/>)
 }
 
-export const openEditModal = ({
-    eventHandler
-    }: EditModalProps) => {
-
-    const { setField } = useModalStore.getState()
+// export const openEditModal = ({
+//     eventHandler,
+//     merchant,
     
-    setField('open', true)
-    setField('width', '440px')
-    setField('children', <EditModal eventHandler={eventHandler}/>)
-}
+//     }: EditModalProps) => {
+
+//     const { setField } = useModalStore.getState()
+    
+//     setField('open', true)
+//     setField('width', '440px')
+//     setField('children', <EditModal eventHandler={eventHandler} merchant={merchant} handleUpdateMerchant={handleUpdateMerchant}/>)
+// }
 
 const ConfirmModal = ({
     title,
@@ -123,12 +127,46 @@ const EditModal = ({
                 placeholder="매장명을 입력하세요"
                 />
 
-                <SelectDropdown 
-                options={testList}
-                onChange={() => console.log('dd')}
-                width="160px"
-                placeholder="상태"
+                <LabelInput
+                label="번호"
+                value={submitData.name}
+                name="name"
+                onChange={handleChange}
+                placeholder="번호를 입력하세요"
                 />
+
+                <LabelInput
+                label="주소"
+                value={submitData.name}
+                name="name"
+                onChange={handleChange}
+                placeholder="주소를 입력하세요"
+                />
+
+                <LabelInput
+                label="매장명"
+                value={submitData.name}
+                name="name"
+                onChange={handleChange}
+                placeholder="매장명을 입력하세요"
+                />
+
+                <RowWrapper>
+                    <SelectDropdown 
+                    options={testList}
+                    onChange={() => console.log('dd')}
+                    width="170px"
+                    placeholder="상태"
+                    />
+
+                    <SelectDropdown 
+                    options={testList}
+                    onChange={() => console.log('dd')}
+                    width="170px"
+                    placeholder="업종"
+                    />
+                </RowWrapper>
+                
             </Body>
 
             <Footer>
@@ -186,3 +224,9 @@ const Footer = styled.div`
 const Title = styled.h3`
     margin: 0;
 `
+
+const RowWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+`   

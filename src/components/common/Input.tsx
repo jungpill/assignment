@@ -35,7 +35,7 @@ export default LabelInput
 
 const InputWrapper = styled.div`
     display: grid;
-    grid-template-rows: auto auto 18px;
+    grid-template-rows: auto auto;
     gap: 2px;
     width: 100%;
 `

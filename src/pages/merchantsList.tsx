@@ -14,6 +14,14 @@ export interface Summary {
     value: number
 }
 
+export interface EditType {
+    mchtCode: string;
+    mchtName: string;
+    status: MerchantStatus;
+    bizType: string;
+    phone: string
+}
+
 const MerchantsList = () => {
 
     const { data } = useGetMerchantsList()
@@ -49,8 +57,17 @@ const MerchantsList = () => {
         setMerchants(prev =>
             prev.filter(m => m.mchtCode !== code) 
         );
-        console.log(merchants)
     };
+
+    // const handleUpdateMerchant = (updatedMerchant: Partial<Merchant> & { mchtCode: string }) => {
+    //     setMerchants((prev) =>
+    //         prev.map((m) =>
+    //             m.mchtCode === updatedMerchant.mchtCode
+    //                 ? { ...m, ...updatedMerchant }
+    //                 : m
+    //         )
+    //     );
+    // };
 
     return(
         <MerchantsListContainer>
