@@ -12,8 +12,6 @@ const Sidebar = () => {
 
     const navigate = useNavigate()
 
-    
-
     const handleClick = (e:React.MouseEvent) => {
         const target = e.target as HTMLElement;
         const value = target.dataset.menu as Menu | undefined;
@@ -44,8 +42,8 @@ export default Sidebar
 
 const SidebarWrapper = styled.div`
     display: flex;
-    max-width: 200px;
-    width: 200px;
+    max-width: 250px;
+    width: 250px;
     flex-direction: column;
     gap: 6px;
 `

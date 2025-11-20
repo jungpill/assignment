@@ -4,7 +4,6 @@ import { type MerchantStatus, type Merchant } from "../../services/api";
 import { useMemo, useState, useRef } from "react";
 import { AppImage } from "../../assets/images/images";
 import Menu from "./Menu";
-import { ConfirmButton } from "../common/Button";
 
 interface Props {
     active: MerchantStatus
@@ -19,6 +18,8 @@ const MerchantsListTable = ({
     }: Props) => {
 
     const [openMenu, setOpenMenu] = useState<number | null>(null)
+    const [searchKeyword, setSearchKeyword] = useState<string >('');
+
     const menuRef = useRef<HTMLDivElement>(null);
 
     const showDetailModal = (code: string, e: React.MouseEvent) => {
@@ -30,8 +31,8 @@ const MerchantsListTable = ({
     }
     
     const filteredMerchants = useMemo(
-        () => merchants.filter(m => m.status === active),
-        [merchants, active]
+        () => merchants.filter(m => m.status === active).filter(m => m.mchtName.includes(searchKeyword)),
+        [merchants, active,searchKeyword]
     );
 
     const handleMenu = (idx:number, e:React.MouseEvent) => {
@@ -46,6 +47,24 @@ const MerchantsListTable = ({
                 <span>
                     매장 관리
                 </span>
+
+                <SearchWrapper>
+                    <AppImage 
+                    name="MagnifyGlass"
+                    customStyle={{
+                    position: 'absolute',
+                    width:'28px',
+                    height:'28px',
+                    right: '10%',
+                    top: '6%'
+                    }}
+                    />
+                    <SearchInput
+                    value={searchKeyword}
+                    onChange={(e) => setSearchKeyword(e.target.value)}
+                    placeholder="매장명을 통해 검색이 가능합니다."
+                    />
+                </SearchWrapper>
             </Title>
             <TableHeader>
                 <HeaderCell >코드</HeaderCell>
@@ -97,6 +116,7 @@ const Container = styled.div`
     padding: 10px 20px;
     border-radius: 8px;
     box-sizing: border-box;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 `;
 
 const TableHeader = styled.div`
@@ -149,4 +169,24 @@ const Title = styled.div`
     padding: 20px;
     font-weight: 600;
     align-items: center;
+`
+
+const SearchWrapper = styled.div`
+    display: flex;
+    position: relative;
+    align-items: center;
+    gap: 10px;
+`
+
+const SearchInput = styled.input`
+    width: 270px;
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    border-radius: 100px;
+    box-sizing: border-box;
+
+    &::placeholder {
+        color: #B3B3B3;
+    }
 `

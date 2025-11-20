@@ -8,11 +8,39 @@ export interface Props {
     setActive: (active: MerchantStatus) => void;
 }
 
+const Tab = ({
+    summary,
+    active,
+    setActive
+    }: Props) => {
+    
+    return(
+        <Container>
+            {summary.map((item, index) => (
+                <Item 
+                key={index} 
+                $active={item.status === active}
+                onClick={() => setActive(item.status)}
+                >
+                    {item.label} 
+                    <Badge $active={item.status === active}>
+                       {item.value}
+                    </Badge>
+                </Item>
+            ))}
+        </Container>
+    )
+}
+
+export default Tab;
+
 const Container = styled.div`
     display: flex;
     width: 100%;
     justify-content: center;
     background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 `
 
 const Item = styled.div<{ $active: boolean }>`
@@ -43,29 +71,3 @@ const Badge = styled.div<{ $active: boolean }>`
     padding: 4px 0px;
     box-sizing: border-box;
 `
-
-const Tab = ({
-    summary,
-    active,
-    setActive
-    }: Props) => {
-    
-    return(
-        <Container>
-            {summary.map((item, index) => (
-                <Item 
-                key={index} 
-                $active={item.status === active}
-                onClick={() => setActive(item.status)}
-                >
-                    {item.label} 
-                    <Badge $active={item.status === active}>
-                       {item.value}
-                    </Badge>
-                </Item>
-            ))}
-        </Container>
-    )
-}
-
-export default Tab;

@@ -78,7 +78,7 @@ const Doughnutchart = ({
 
     return(
         <Container>
-           
+           <ChartTitle>결제 방식 분포</ChartTitle>
            <ChartWrapper>
              <Doughnut
             ref={chartRef}
@@ -95,7 +95,7 @@ export default Doughnutchart
 const Container = styled.div`
     display: flex;
     flex-direction: column;
-    width: 48%;
+    width: 47%;
     height: 300px;
     box-sizing: border-box;
     background: #fff;
@@ -108,4 +108,11 @@ const Container = styled.div`
 const ChartWrapper = styled.div`
     height: 100%;
     padding: 12px;
+`;
+
+const ChartTitle = styled.h3`
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+    margin: 0 0 16px 0;
 `;

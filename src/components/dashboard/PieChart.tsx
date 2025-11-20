@@ -102,7 +102,7 @@ export const PieChart: React.FC<Props> = ({ chartData }) => {
 const Container = styled.div`
     display: flex;
     flex-direction: column;
-    width: 48%;
+    width: 47%;
     height: 300px;
     box-sizing: border-box;
     background: #fff;
