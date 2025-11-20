@@ -6,6 +6,7 @@ import PhoneIcon from './phone_icon.svg?react'
 import MailIcon from './mail_icon.svg?react'
 import JobIcon from './job_icon.svg?react'
 import ArrowIcon from './ArrowRight_Icon.svg?react'
+import MenuIcon from './menu_icon.svg?react'
 
 const ICONS = {
   XIcon: xIcon,
@@ -13,7 +14,8 @@ const ICONS = {
   PhoneIcon: PhoneIcon,
   MailIcon: MailIcon,
   JobIcon:JobIcon,
-  ArrowIcon: ArrowIcon
+  ArrowIcon: ArrowIcon,
+  MenuIcon: MenuIcon
 } as const;
 
 type Props = {

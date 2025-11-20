@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import { openDetailModal } from "../modal/DetailModal";
-import { type MerchantLabel, type Merchant } from "../../services/api";
+import { type MerchantStatus, type Merchant } from "../../services/api";
 import { type Summary } from "../../pages/MerchantsList";
 import { useMemo } from "react";
+import { AppImage } from "../../assets/images/images";
 
 interface Props {
-    active: MerchantLabel
+    active: MerchantStatus
     merchants: Merchant[]
     summary: Summary[]
 }
@@ -19,10 +20,11 @@ const MerchantsListTable = ({
     const showDetailModal = (code: string) => {
         openDetailModal(code)
     }
-    const activeStatus = useMemo(() => {
-        const activeStatus = summary.filter((item) => item.label === active)
-        return activeStatus[0].status
-    },[active])
+    
+    const filteredMerchants = useMemo(
+        () => merchants.filter(m => m.status === active),
+        [merchants, active]
+    );
     
     return(
         <Container>
@@ -37,15 +39,15 @@ const MerchantsListTable = ({
             </TableHeader>
 
             <Body>
-                {merchants.map((r) => (
-                 (activeStatus === r.status && (
-                <DataRow key={r.mchtCode} onClick={() => showDetailModal(r.mchtCode)}>
+                {filteredMerchants.map((r, idx) => (
+                 <DataRow key={r.mchtCode} onClick={() => showDetailModal(r.mchtCode)}>
                     <span>{r.mchtCode}</span>
                     <span>{r.mchtName}</span>
                     <span>{r.status}</span>
                     <span>{r.bizType}</span>
+                    <span><AppImage name="MenuIcon" customStyle={{width: 20, height: 20, marginRight: 10}}/></span>
                 </DataRow>
-                ))))}
+                 ))}
             </Body>
         </Container>
     )
@@ -66,7 +68,7 @@ const Container = styled.div`
 
 const TableHeader = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 0.4fr;
     width: 100%;
     border-bottom: 1px solid #E5E7EB;
 
@@ -100,7 +102,7 @@ const Body = styled.div`
 
 const DataRow = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 0.4fr;
     justify-items: center;
     border-bottom: 1px solid #E5E7EB;
     cursor: pointer;
@@ -114,21 +116,4 @@ const Title = styled.div`
     padding: 20px;
     font-weight: 600;
     align-items: center;
-`
-
-const MoreButton = styled.div`
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: #6B7280;
-    font-size: 18px;
-    line-height: 1;
-    background: transparent;
-    border: 0;
-    padding: 0;
-    cursor: pointer;
-
-    &:hover {
-        color: #374151;
-    }
 `

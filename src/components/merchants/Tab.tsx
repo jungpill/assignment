@@ -1,11 +1,11 @@
 import styled from "styled-components"
-import { type MerchantLabel } from "../../services/api"
+import { type MerchantStatus } from "../../services/api"
 import type { Summary } from "../../pages/MerchantsList"
 
 export interface Props {
     summary: Summary[]
-    active: MerchantLabel
-    setActive: (active: MerchantLabel) => void;
+    active: MerchantStatus
+    setActive: (active: MerchantStatus) => void;
 }
 
 const Container = styled.div`
@@ -55,11 +55,11 @@ const Tab = ({
             {summary.map((item, index) => (
                 <Item 
                 key={index} 
-                $active={item.label === active}
-                onClick={() => setActive(item.label)}
+                $active={item.status === active}
+                onClick={() => setActive(item.status)}
                 >
                     {item.label} 
-                    <Badge $active={item.label === active}>
+                    <Badge $active={item.status === active}>
                        {item.value}
                     </Badge>
                 </Item>
