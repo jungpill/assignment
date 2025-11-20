@@ -1,13 +1,20 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useSidebarStore } from "../stores/useSidebarStore";
 
 const Header = () => {
 
     const navigate = useNavigate()
+    const setMenu = useSidebarStore(p => p.setItem)
+
+    const handleNavigate = () => {
+        navigate('/')
+        setMenu('대시보드')
+    }
 
     return(
         <HeaderLayout>
-            <Title onClick={() => navigate('/')}>
+            <Title onClick={handleNavigate}>
                 대시보드
             </Title>
         </HeaderLayout>

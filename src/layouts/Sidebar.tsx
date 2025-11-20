@@ -1,22 +1,23 @@
 import styled from "styled-components";
-import React,{ useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useSidebarStore, type Menu } from "../stores/useSidebarStore";
 
-type Menu = '대시보드' | '매장관리'
 const MENUS = ['대시보드', '매장관리'] as const;
 
 const Sidebar = () => {
 
-    
+    const menu = useSidebarStore(p => p.item)
+    const setMenu = useSidebarStore(p => p.setItem)
+
     const navigate = useNavigate()
 
-    const [menu, setMenu] = useState<Menu>('대시보드')
+    
 
     const handleClick = (e:React.MouseEvent) => {
         const target = e.target as HTMLElement;
         const value = target.dataset.menu as Menu | undefined;
-        console.log(value)
-        console.log(target)
+        
         if (!value) return;
 
         setMenu(value);
