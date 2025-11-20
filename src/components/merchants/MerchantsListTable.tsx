@@ -4,7 +4,7 @@ import { openDetailModal } from "../modal/DetailModal";
 import { AppImage } from "../../assets/images/images";
 import { useNavigate } from "react-router-dom";
 
-const PaymentHistoryTable = () => {
+const MerchantsListTable = () => {
 
     const {data: totalAmountList, isLoading} = useGetMerchantsList()
 
@@ -19,11 +19,7 @@ const PaymentHistoryTable = () => {
     return(
         <Container>
             <Title>
-                관리 매장
-                <MoreButton onClick={() => navigate('/merchants-list')}>
-                    더보기
-                    <AppImage name='ArrowIcon'/>
-                </MoreButton>
+                매장 관리
             </Title>
             <TableHeader>
                 <HeaderCell >코드</HeaderCell>
@@ -33,7 +29,7 @@ const PaymentHistoryTable = () => {
             </TableHeader>
 
             <Body>
-                {totalAmountList.data.slice(0,3).map((r) => (
+                {totalAmountList.data.map((r) => (
                 <DataRow key={r.mchtCode} onClick={() => showDetailModal(r.mchtCode)}>
                 <span>{r.mchtCode}</span>
                 <span>{r.mchtName}</span>
@@ -47,7 +43,7 @@ const PaymentHistoryTable = () => {
     )
 }
 
-export default PaymentHistoryTable
+export default MerchantsListTable
 
 const Container = styled.div`
     display: flex;

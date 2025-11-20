@@ -16,7 +16,7 @@ const AppRouter = createBrowserRouter([
             },{
                 index: true,
                 element: <MerchantsList/>,
-                path: 'merchantsList'
+                path: 'merchants-list'
             }
         ]
 }])

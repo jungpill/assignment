@@ -1,10 +1,13 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
 
+    const navigate = useNavigate()
+
     return(
         <HeaderLayout>
-            <Title>
+            <Title onClick={() => navigate('/')}>
                 대시보드
             </Title>
         </HeaderLayout>
@@ -27,4 +30,5 @@ const Title = styled.h2`
     font-size: 24px;
     font-weight: 600;
     margin: 0;
+    cursor: pointer;
 `

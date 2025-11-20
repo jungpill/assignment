@@ -20,7 +20,7 @@ const Sidebar = () => {
 
         setMenu(value);
         if(value === '대시보드') navigate('/')
-        else navigate('/merchantsList')
+        else navigate('/merchants-list')
     }
 
     return(

@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import PaymentHistoryTable from '../components/dashboard/PaymentHistoryTable'
+import MerchantsListTable from "../components/merchants/MerchantsListTable";
 
 const MerchantsList = () => {
 
 
     return(
         <MerchantsListContainer>
-            <PaymentHistoryTable limit={false}/>
+            <MerchantsListTable/>
         </MerchantsListContainer>
     )
 }
