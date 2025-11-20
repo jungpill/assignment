@@ -24,17 +24,21 @@ const PaymentHistoryTable = ({
 
     const handleNavigate = () => {
         navigate('/payment-list')
-        setMenu('매장관리')
+        setMenu('결제내역')
     }
 
     return(
         <Container>
             <Title>
                 결제 내역
-                <MoreButton onClick={handleNavigate}>
-                    더보기
-                    <AppImage name='ArrowIcon'/>
-                </MoreButton>
+                {
+                    limit && (
+                    <MoreButton onClick={handleNavigate}>
+                        더보기
+                        <AppImage name='ArrowIcon'/>
+                    </MoreButton>
+                    )
+                }
             </Title>
             <TableHeader>
                 <HeaderCell >코드</HeaderCell>
@@ -63,7 +67,6 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
     margin-top: 24px;
     background: #fff;
     padding: 10px 20px;

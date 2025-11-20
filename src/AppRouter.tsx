@@ -2,6 +2,7 @@ import Layout from "./layouts/Layout";
 import { createBrowserRouter} from 'react-router-dom';
 import Dashboard from "./pages/Dashboard";
 import MerchantsList from "./pages/MerchantsList";
+import PaymentList from './pages/PaymentList'
 
 const AppRouter = createBrowserRouter([
     {
@@ -19,7 +20,7 @@ const AppRouter = createBrowserRouter([
                 path: 'merchants-list'
             },{
                 index: true,
-                element: <MerchantsList/>,
+                element: <PaymentList/>,
                 path: 'payment-list'
             }
         ]

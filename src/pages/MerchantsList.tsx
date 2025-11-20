@@ -93,5 +93,4 @@ const MerchantsListContainer = styled.div`
     box-sizing: border-box;
     background: #F9FAFB;
     overflow-X: hidden;
-
 `
