@@ -44,7 +44,6 @@ const MerchantsList = () => {
             { status: 'READY', label: '준비중', value: counts.READY },
             { status: 'INACTIVE', label: '정지', value: counts.INACTIVE }]
         
-        
         return {summary,} 
     }, [merchants]);
 

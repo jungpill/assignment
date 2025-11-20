@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import { useGetMerchantsList } from "../../services/api";
 import { openDetailModal } from "../modal/DetailModal";
-import { useNavigate } from "react-router-dom";
 import { type MerchantLabel, type Merchant } from "../../services/api";
 import { type Summary } from "../../pages/MerchantsList";
+import { useMemo } from "react";
 
 interface Props {
     active: MerchantLabel
@@ -16,18 +15,15 @@ const MerchantsListTable = ({
     merchants,
     summary
     }: Props) => {
-    
-    const {data: totalAmountList, isLoading} = useGetMerchantsList()
-
-    const navigate = useNavigate()
-
-    if(isLoading || !totalAmountList) return null;
 
     const showDetailModal = (code: string) => {
         openDetailModal(code)
     }
-    const activeStatus = summary.filter((item) => item.label === active)
-    console.log(activeStatus)
+    const activeStatus = useMemo(() => {
+        const activeStatus = summary.filter((item) => item.label === active)
+        return activeStatus[0].status
+    },[active])
+    
     return(
         <Container>
             <Title>
@@ -42,15 +38,14 @@ const MerchantsListTable = ({
 
             <Body>
                 {merchants.map((r) => (
-                 (activeStatus[0].status === r.status && 
+                 (activeStatus === r.status && (
                 <DataRow key={r.mchtCode} onClick={() => showDetailModal(r.mchtCode)}>
-                <span>{r.mchtCode}</span>
-                <span>{r.mchtName}</span>
-                <span>{r.status}</span>
-                <span>{r.bizType}</span>
+                    <span>{r.mchtCode}</span>
+                    <span>{r.mchtName}</span>
+                    <span>{r.status}</span>
+                    <span>{r.bizType}</span>
                 </DataRow>
-                 )   
-                ))}
+                ))))}
             </Body>
         </Container>
     )
