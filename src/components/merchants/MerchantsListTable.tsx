@@ -1,23 +1,28 @@
 import styled from "styled-components";
 import { openDetailModal } from "../modal/DetailModal";
 import { type MerchantStatus, type Merchant } from "../../services/api";
-import { type Summary } from "../../pages/MerchantsList";
-import { useMemo } from "react";
+import { useMemo, useState, useRef } from "react";
 import { AppImage } from "../../assets/images/images";
+import ProfileMenu from "./Menu";
 
 interface Props {
     active: MerchantStatus
     merchants: Merchant[]
-    summary: Summary[]
 }
 
 const MerchantsListTable = ({
     active,
     merchants,
-    summary
     }: Props) => {
 
-    const showDetailModal = (code: string) => {
+    const [openMenu, setOpenMenu] = useState<number | null>(null)
+    const menuRef = useRef<HTMLDivElement>(null);
+
+    const showDetailModal = (code: string, e: React.MouseEvent) => {
+        const target = e.target as HTMLElement;
+        const value = target.dataset.menu 
+
+        if (!value) return;
         openDetailModal(code)
     }
     
@@ -25,6 +30,12 @@ const MerchantsListTable = ({
         () => merchants.filter(m => m.status === active),
         [merchants, active]
     );
+
+    const handleMenu = (idx:number, e:React.MouseEvent) => {
+        e.stopPropagation(); 
+        
+        setOpenMenu(prev => (prev === idx ? null : idx)); 
+    }
     
     return(
         <Container>
@@ -40,12 +51,27 @@ const MerchantsListTable = ({
 
             <Body>
                 {filteredMerchants.map((r, idx) => (
-                 <DataRow key={r.mchtCode} onClick={() => showDetailModal(r.mchtCode)}>
-                    <span>{r.mchtCode}</span>
-                    <span>{r.mchtName}</span>
-                    <span>{r.status}</span>
-                    <span>{r.bizType}</span>
-                    <span><AppImage name="MenuIcon" customStyle={{width: 20, height: 20, marginRight: 10}}/></span>
+                 <DataRow key={r.mchtCode} onClick={(e) => showDetailModal(r.mchtCode,e)}>
+                    <span data-menu={false}>{r.mchtCode}</span>
+                    <span data-menu={false}>{r.mchtName}</span>
+                    <span data-menu={false}>{r.status}</span>
+                    <span data-menu={false}>{r.bizType}</span>
+                    <span 
+                    data-role={idx} 
+                    style={{position: 'relative'}} 
+                    ref={menuRef}
+                    onClick={(e) => handleMenu(idx,e)}
+                    >
+                        <AppImage 
+                        name="MenuIcon" 
+                        customStyle={{width: 20, height: 20, marginRight: 10}}
+                        />
+                        <ProfileMenu
+                        show={openMenu === idx}
+                        onClose={() => setOpenMenu(null)}
+                        parentRef={menuRef}
+                        />
+                    </span>
                 </DataRow>
                  ))}
             </Body>

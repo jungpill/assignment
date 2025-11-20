@@ -15,7 +15,8 @@ const Sidebar = () => {
     const handleClick = (e:React.MouseEvent) => {
         const target = e.target as HTMLElement;
         const value = target.dataset.menu as Menu | undefined;
-
+        console.log(value)
+        console.log(target)
         if (!value) return;
 
         setMenu(value);

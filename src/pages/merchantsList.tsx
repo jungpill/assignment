@@ -55,7 +55,6 @@ const MerchantsList = () => {
             <MerchantsListTable 
             active={active}
             merchants={merchants}
-            summary={summary}
             />
         </MerchantsListContainer>
     )
