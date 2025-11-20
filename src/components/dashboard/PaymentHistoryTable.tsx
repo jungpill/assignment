@@ -5,10 +5,14 @@ import { AppImage } from "../../assets/images/images";
 import { useNavigate } from "react-router-dom";
 import { useSidebarStore } from "../../stores/useSidebarStore";
 
-const PaymentHistoryTable = () => {
+const PaymentHistoryTable = ({
+    limit
+    }: {limit: boolean}) => {
 
     const {data: totalAmountList, isLoading} = useGetPaymentList()
     const setMenu = useSidebarStore(p => p.setItem)
+
+    const sliceValue = limit ? 3 : totalAmountList?.data.length
 
     const navigate = useNavigate()
 
@@ -19,14 +23,14 @@ const PaymentHistoryTable = () => {
     }
 
     const handleNavigate = () => {
-        navigate('/merchants-list')
+        navigate('/payment-list')
         setMenu('매장관리')
     }
 
     return(
         <Container>
             <Title>
-                관리 매장
+                결제 내역
                 <MoreButton onClick={handleNavigate}>
                     더보기
                     <AppImage name='ArrowIcon'/>
@@ -40,7 +44,7 @@ const PaymentHistoryTable = () => {
             </TableHeader>
 
             <Body>
-                {totalAmountList.data.slice(0,3).map((r) => (
+                {totalAmountList.data.slice(0,sliceValue).map((r) => (
                 <DataRow key={r.mchtCode} onClick={() => showDetailModal(r.mchtCode)}>
                 <span>{r.mchtCode}</span>
                 <span>{Number(r.amount).toLocaleString()}</span>

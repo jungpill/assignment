@@ -1,7 +1,7 @@
 import Layout from "./layouts/Layout";
-import { createBrowserRouter, redirect} from 'react-router-dom';
-import Dashboard from "./pages/Dashboard";
-import MerchantsList from "./pages/MerchantsList";
+import { createBrowserRouter} from 'react-router-dom';
+import Dashboard from "./pages/Dashboard_mdm";
+import MerchantsList from "./pages/MerchantsList_dasd";
 
 const AppRouter = createBrowserRouter([
     {
@@ -17,6 +17,10 @@ const AppRouter = createBrowserRouter([
                 index: true,
                 element: <MerchantsList/>,
                 path: 'merchants-list'
+            },{
+                index: true,
+                element: <MerchantsList/>,
+                path: 'payment-list'
             }
         ]
 }])

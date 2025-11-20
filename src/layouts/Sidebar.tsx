@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSidebarStore, type Menu } from "../stores/useSidebarStore";
 
-const MENUS = ['대시보드', '매장관리'] as const;
+const MENUS = ['대시보드', '매장관리', '결제내역'] as const;
 
 const Sidebar = () => {
 
@@ -20,7 +20,8 @@ const Sidebar = () => {
 
         setMenu(value);
         if(value === '대시보드') navigate('/')
-        else navigate('/merchants-list')
+        if(value === '매장관리') navigate('/merchants-list')
+        if(value === '결제내역') navigate('/payment-list')
     }
 
     return(

@@ -124,14 +124,16 @@ const Dashboard = () => {
             </RowWrapper>
 
             <RowWrapper>
-            <PaymentHistoryTable/>
+            <PaymentHistoryTable
+            limit={true}
+            />
             </RowWrapper>
             
         </DashboardContainer>
     )
 }
 
-export default Dashboard
+export default Dashboard;
 
 const DashboardContainer = styled.div`
     width: 100%;
