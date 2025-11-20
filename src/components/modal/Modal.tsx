@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useModalStore } from '../../stores/ModalStore'
+import { useModalStore } from '../../stores/useModalStore'
 import React, { useState,useEffect, useRef } from "react";
 
 const ANIM_MS = 300;

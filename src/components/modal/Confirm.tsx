@@ -1,4 +1,4 @@
-import { useModalStore } from "../../stores/ModalStore";
+import { useModalStore } from "../../stores/useModalStore";
 import styled from "styled-components";
 import { AppImage } from "../../assets/images/images";
 import { useGetDetailMerchants } from "../../services/api";
@@ -10,7 +10,7 @@ interface ModalProps {
     eventHandler: () => void
 }
 
-export const openConfirmModal = ({
+export const openDeleteModal = ({
     title,
     content,
     eventHandler
