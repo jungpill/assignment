@@ -5,6 +5,7 @@ import { useGetPaymentList } from "../services/api"
 import Doughnutchart from '../components/dashboard/Doughnutchart'
 import type { PayType, PayLabel} from '../services/api'
 import PaymentHistoryTable from "../components/dashboard/PaymentHistoryTable"
+import { PieChart, type StatusChartItem} from "../components/dashboard/PieChart"
 
 export type ChartItem = {
   type: PayType;
@@ -23,8 +24,13 @@ const Dashboard = () => {
         VACT: 0,
         BILLING: 0,
     };
-    
-    console.log(totalAmountList)
+
+    const statusCounts = {
+        SUCCESS: 0,
+        CANCELLED: 0,
+        PENDING: 0,
+        FAILED: 0,
+    };
 
     // 전체 거래내역을 통한 총 결제 금액, 횟수, 성공률, 취소 비율, 계산 및 차트에 사용될 데이터 가공
     const status = useMemo(() => {
@@ -35,7 +41,8 @@ const Dashboard = () => {
             canceledCount: 0,
             successRate: 0,
             cancelRate: 0,
-            chartData: [],
+            doughnutChart: [],
+            pieChart: [],
          };
     
         let totalAmount = 0;
@@ -45,6 +52,8 @@ const Dashboard = () => {
         totalAmountList.data.forEach((payment) => {
             totalAmount += Number(payment.amount);
             counts[payment.payType]++;
+
+            statusCounts[payment.status]++;
             if(payment.status === "SUCCESS") successCount++;
             if(payment.status === "CANCELLED") canceledCount++;
         })
@@ -53,12 +62,19 @@ const Dashboard = () => {
         const successRate = length > 0 ? (successCount  / length) * 100 : 0;
         const cancelRate = length > 0 ? (canceledCount / length) * 100 : 0;
 
-        const chartData: ChartItem[] = [
+        const doughnutChart: ChartItem[] = [
             { type: 'ONLINE', label: '온라인', value: counts.ONLINE },
             { type: 'DEVICE', label: '단말기', value: counts.DEVICE },
             { type: 'MOBILE', label: '모바일', value: counts.MOBILE },
             { type: 'VACT', label: '가상계좌', value: counts.VACT },
             { type: 'BILLING', label: '정기결제', value: counts.BILLING },
+        ];
+
+        const pieChart: StatusChartItem[] = [
+            { status: 'SUCCESS', label: '결제 완료', value: statusCounts.SUCCESS },
+            { status: 'CANCELLED', label: '환불 완료', value: statusCounts.CANCELLED },
+            { status: 'PENDING', label: '결제 대기', value: statusCounts.PENDING },
+            { status: 'FAILED', label: '결제 실패', value: statusCounts.FAILED },
         ];
     
         return {
@@ -66,16 +82,15 @@ const Dashboard = () => {
             length, 
             successCount,
             canceledCount,
-            chartData,
+            doughnutChart,
             successRate,
             cancelRate,
+            pieChart
         };
       }, [totalAmountList]); 
 
       if (isLoading) return null;
-      // 추후 paymentCard에 icon 추가
 
-    
     return(
         <DashboardContainer>
             <RowWrapper>
@@ -100,7 +115,11 @@ const Dashboard = () => {
 
             <RowWrapper>
             <Doughnutchart
-                chartData={status.chartData as ChartItem[]}
+                chartData={status.doughnutChart as ChartItem[]}
+            />
+
+            <PieChart
+                chartData={status.pieChart}
             />
             </RowWrapper>
 

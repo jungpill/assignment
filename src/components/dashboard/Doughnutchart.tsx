@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { useMemo, useRef } from "react";
-import { Doughnut,getElementAtEvent } from "react-chartjs-2";
+import { useRef } from "react";
+import { Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   ArcElement,
@@ -95,22 +95,17 @@ export default Doughnutchart
 const Container = styled.div`
     display: flex;
     flex-direction: column;
-    width: 40%;
+    width: 48%;
     height: 300px;
     box-sizing: border-box;
     background: #fff;
     padding: 12px;
     margin-top: 20px;
     border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 `
 
 const ChartWrapper = styled.div`
     height: 100%;
     padding: 12px;
 `;
-
-const ChartName = styled.h2`
-    display: flex;
-    font-size: 24px;
-    margin: 0 0 10px 22px;
-`
