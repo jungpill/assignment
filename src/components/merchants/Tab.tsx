@@ -1,13 +1,12 @@
 import styled from "styled-components"
 import { type MerchantLabel } from "../../services/api"
-import { useState } from "react"
 import type { Summary } from "../../pages/MerchantsList"
 
 export interface Props {
     summary: Summary[]
+    active: MerchantLabel
+    setActive: (active: MerchantLabel) => void;
 }
-
-const TAB_LIST:MerchantLabel[] = ['영업중','준비중',  '정지', '영업종료']
 
 const Container = styled.div`
     display: flex;
@@ -46,10 +45,10 @@ const Badge = styled.div<{ $active: boolean }>`
 `
 
 const Tab = ({
-    summary
+    summary,
+    active,
+    setActive
     }: Props) => {
-    
-    const [active, setActive] = useState<MerchantLabel>('영업중');
     
     return(
         <Container>

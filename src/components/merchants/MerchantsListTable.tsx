@@ -1,11 +1,22 @@
 import styled from "styled-components";
 import { useGetMerchantsList } from "../../services/api";
 import { openDetailModal } from "../modal/DetailModal";
-import { AppImage } from "../../assets/images/images";
 import { useNavigate } from "react-router-dom";
+import { type MerchantLabel, type Merchant } from "../../services/api";
+import { type Summary } from "../../pages/MerchantsList";
 
-const MerchantsListTable = () => {
+interface Props {
+    active: MerchantLabel
+    merchants: Merchant[]
+    summary: Summary[]
+}
 
+const MerchantsListTable = ({
+    active,
+    merchants,
+    summary
+    }: Props) => {
+    
     const {data: totalAmountList, isLoading} = useGetMerchantsList()
 
     const navigate = useNavigate()
@@ -15,7 +26,8 @@ const MerchantsListTable = () => {
     const showDetailModal = (code: string) => {
         openDetailModal(code)
     }
-
+    const activeStatus = summary.filter((item) => item.label === active)
+    console.log(activeStatus)
     return(
         <Container>
             <Title>
@@ -29,14 +41,15 @@ const MerchantsListTable = () => {
             </TableHeader>
 
             <Body>
-                {totalAmountList.data.map((r) => (
+                {merchants.map((r) => (
+                 (activeStatus[0].status === r.status && 
                 <DataRow key={r.mchtCode} onClick={() => showDetailModal(r.mchtCode)}>
                 <span>{r.mchtCode}</span>
                 <span>{r.mchtName}</span>
                 <span>{r.status}</span>
                 <span>{r.bizType}</span>
-                
                 </DataRow>
+                 )   
                 ))}
             </Body>
         </Container>

@@ -18,14 +18,15 @@ const MerchantsList = () => {
 
     const { data } = useGetMerchantsList()
     const [merchants, setMerchants] = useState<Merchant[]>([]);
+    const [active, setActive] = useState<MerchantLabel>('영업중');
 
     useEffect(() => {
         if (data?.data) {
             setMerchants(data.data)
         }
     }, [data]);
-
-    const summary = useMemo(() => {
+    
+    const {summary} = useMemo(() => {
         const counts = {
             ACTIVE: 0,
             CLOSED: 0,
@@ -36,21 +37,29 @@ const MerchantsList = () => {
         merchants.forEach((m) => {
             counts[m.status]++;
         });
-        
-        return [
-            { status: 'ACTIVE', label: '영업중', value: counts.ACTIVE },
+
+        const summary:Summary[] = 
+            [{ status: 'ACTIVE', label: '영업중', value: counts.ACTIVE },
             { status: 'CLOSED', label: '영업종료', value: counts.CLOSED },
             { status: 'READY', label: '준비중', value: counts.READY },
-            { status: 'INACTIVE', label: '정지', value: counts.INACTIVE },
-        ] as Summary[];
+            { status: 'INACTIVE', label: '정지', value: counts.INACTIVE }]
+        
+        
+        return {summary,} 
     }, [merchants]);
 
     return(
         <MerchantsListContainer>
-            <Tab
+            <Tab 
+            summary={summary}
+            active={active}
+            setActive={setActive}
+            />
+            <MerchantsListTable 
+            active={active}
+            merchants={merchants}
             summary={summary}
             />
-            <MerchantsListTable/>
         </MerchantsListContainer>
     )
 }
