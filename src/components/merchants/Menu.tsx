@@ -6,12 +6,16 @@ interface Props {
     show: boolean
     onClose: () => void;
     parentRef: React.RefObject<HTMLDivElement | null>;
+    mchtCode: string
+    handleDeleteMerchant: (code: string) => void
 }
 
-const ProfileMenu = ({
+const Menu = ({
     show,
     onClose,
     parentRef,
+    mchtCode,
+    handleDeleteMerchant
     }: Props) => {
 
     const ref = useRef<HTMLDivElement>(null);
@@ -37,7 +41,14 @@ const ProfileMenu = ({
 
     const openDeleteModal = (e:React.MouseEvent) => {
         e.stopPropagation
-        openConfirmModal({title: '선택 매장이 삭제됩니다', content: '정말 삭제하시겠습니까?', eventHandler: () => console.log('dd')})
+        openConfirmModal({
+        title: '선택 매장이 삭제됩니다',
+        content: '정말 삭제하시겠습니까?',
+        eventHandler: () => {
+      handleDeleteMerchant(mchtCode);  // ✅ 부모 state에서 실제 삭제
+      onClose();           // ✅ 메뉴 닫기
+    },
+  });
     }
 
     // const openEditModal = (e:React.MouseEvent) => {
@@ -60,7 +71,7 @@ const ProfileMenu = ({
     )
 }
 
-export default ProfileMenu
+export default Menu
 
 const Container = styled.div<{$show: boolean}>`
     padding: 8px 6px;

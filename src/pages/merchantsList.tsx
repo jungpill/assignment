@@ -45,6 +45,13 @@ const MerchantsList = () => {
         }));
     }, [merchants]);
 
+    const handleDeleteMerchant = (code: string) => {
+        setMerchants(prev =>
+            prev.filter(m => m.mchtCode !== code) 
+        );
+        console.log(merchants)
+    };
+
     return(
         <MerchantsListContainer>
             <Tab 
@@ -55,6 +62,7 @@ const MerchantsList = () => {
             <MerchantsListTable 
             active={active}
             merchants={merchants}
+            handleDeleteMerchant={handleDeleteMerchant}
             />
         </MerchantsListContainer>
     )

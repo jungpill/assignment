@@ -3,16 +3,18 @@ import { openDetailModal } from "../modal/DetailModal";
 import { type MerchantStatus, type Merchant } from "../../services/api";
 import { useMemo, useState, useRef } from "react";
 import { AppImage } from "../../assets/images/images";
-import ProfileMenu from "./Menu";
+import Menu from "./Menu";
 
 interface Props {
     active: MerchantStatus
     merchants: Merchant[]
+    handleDeleteMerchant: (code: string) => void
 }
 
 const MerchantsListTable = ({
     active,
     merchants,
+    handleDeleteMerchant
     }: Props) => {
 
     const [openMenu, setOpenMenu] = useState<number | null>(null)
@@ -66,10 +68,12 @@ const MerchantsListTable = ({
                         name="MenuIcon" 
                         customStyle={{width: 20, height: 20, marginRight: 10}}
                         />
-                        <ProfileMenu
+                        <Menu
                         show={openMenu === idx}
                         onClose={() => setOpenMenu(null)}
                         parentRef={menuRef}
+                        mchtCode={r.mchtCode}
+                        handleDeleteMerchant={handleDeleteMerchant}
                         />
                     </span>
                 </DataRow>

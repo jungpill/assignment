@@ -31,6 +31,12 @@ const ConfirmModal = ({
   
     const reset = useModalStore(p => p.reset)
 
+    const handleEvent = () => {
+        console.log('dd')
+        eventHandler()
+        reset()   
+    }
+
     return(
         <DetailModalContainer>
             <Header>
@@ -45,7 +51,7 @@ const ConfirmModal = ({
             <Footer>
                 <ConfirmButton 
                 style={{width: 88}}
-                onClick={eventHandler}
+                onClick={handleEvent}
                 >
                     확인
                 </ConfirmButton>
