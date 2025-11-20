@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { type MerchantStatus } from "../../services/api"
-import type { Summary } from "../../pages/MerchantsList_dasd"
+import type { Summary } from "../../pages/MerchantsList"
 
 export interface Props {
     summary: Summary[]

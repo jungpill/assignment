@@ -8,7 +8,7 @@ import {
   Legend,
   Title,
 } from "chart.js";
-import { type ChartItem } from "../../pages/Dashboard_mdm";
+import { type ChartItem } from "../../pages/Dashboard";
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title,);
 

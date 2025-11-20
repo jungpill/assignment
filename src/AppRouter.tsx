@@ -1,7 +1,7 @@
 import Layout from "./layouts/Layout";
 import { createBrowserRouter} from 'react-router-dom';
-import Dashboard from "./pages/Dashboard_mdm";
-import MerchantsList from "./pages/MerchantsList_dasd";
+import Dashboard from "./pages/Dashboard";
+import MerchantsList from "./pages/MerchantsList";
 
 const AppRouter = createBrowserRouter([
     {
