@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useGetMerchantsList } from "../../services/api";
+import { useGetPaymentList } from "../../services/api";
 import { openDetailModal } from "../modal/DetailModal";
 import { AppImage } from "../../assets/images/images";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import { useSidebarStore } from "../../stores/useSidebarStore";
 
 const PaymentHistoryTable = () => {
 
-    const {data: totalAmountList, isLoading} = useGetMerchantsList()
+    const {data: totalAmountList, isLoading} = useGetPaymentList()
     const setMenu = useSidebarStore(p => p.setItem)
 
     const navigate = useNavigate()
@@ -34,18 +34,18 @@ const PaymentHistoryTable = () => {
             </Title>
             <TableHeader>
                 <HeaderCell >코드</HeaderCell>
-                <HeaderCell >매장명</HeaderCell>
-                <HeaderCell style={{justifyContent: 'center'}}>가맹정 상태</HeaderCell>
-                <HeaderCell style={{justifyContent: 'center'}}>업종</HeaderCell>
+                <HeaderCell >결제 금액</HeaderCell>
+                <HeaderCell style={{justifyContent: 'center'}}>결제 방식</HeaderCell>
+                <HeaderCell style={{justifyContent: 'center'}}>결제 상태</HeaderCell>
             </TableHeader>
 
             <Body>
                 {totalAmountList.data.slice(0,3).map((r) => (
                 <DataRow key={r.mchtCode} onClick={() => showDetailModal(r.mchtCode)}>
                 <span>{r.mchtCode}</span>
-                <span>{r.mchtName}</span>
+                <span>{Number(r.amount).toLocaleString()}</span>
+                <span>{r.payType}</span>
                 <span>{r.status}</span>
-                <span>{r.bizType}</span>
                 </DataRow>
                 ))}
             </Body>
