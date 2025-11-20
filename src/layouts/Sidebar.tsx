@@ -1,11 +1,14 @@
 import styled from "styled-components";
 import React,{ useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-type Menu = '대시보드' | '일단 해봄'
+type Menu = '대시보드' | '매장관리'
+const MENUS = ['대시보드', '매장관리'] as const;
 
 const Sidebar = () => {
 
-    const MENUS = ['대시보드', '일단 해봄'] as const;
+    
+    const navigate = useNavigate()
 
     const [menu, setMenu] = useState<Menu>('대시보드')
 
@@ -16,6 +19,8 @@ const Sidebar = () => {
         if (!value) return;
 
         setMenu(value);
+        if(value === '대시보드') navigate('/')
+        else navigate('/merchantsList')
     }
 
     return(
@@ -24,7 +29,7 @@ const Sidebar = () => {
             <MenuItem
             key={m}
             $selected={menu !== m}
-            onClick={() => setMenu(m)}
+            data-menu={m}  
             >
             {m}
             </MenuItem>

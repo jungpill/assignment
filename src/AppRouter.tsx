@@ -12,7 +12,12 @@ const AppRouter = createBrowserRouter([
         children:[
             {   index: true,
                 element:<Dashboard/>
-            }]
+            },{
+                index: true,
+                element: <Dashboard/>,
+                path: 'merchantsList'
+            }
+        ]
 }])
 
 export default AppRouter;
