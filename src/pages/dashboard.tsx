@@ -47,7 +47,6 @@ const Dashboard = () => {
             counts[payment.payType]++;
             if(payment.status === "SUCCESS") successCount++;
             if(payment.status === "CANCELLED") canceledCount++;
-            
         })
                 
         const length = totalAmountList.data.length

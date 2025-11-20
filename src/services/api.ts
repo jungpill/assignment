@@ -8,6 +8,7 @@ export type PaymentStatus = 'PENDING' | 'SUCCESS' | 'FAILED' | 'CANCELLED'
 export type PaymentLabel = '결제 대기' | '결제 완료' | '결제 실패' | '환불 완료'
 
 export type MerchantStatus = 'READY' | 'ACTIVE' | 'INACTIVE' | 'CLOSED'
+export type MerchantLabel = '준비중' | '영업중' | '정지' | '영업종료'
 
 const FIVE_MINUTES = 5 * 60 * 1000;
 
@@ -52,6 +53,36 @@ export interface DetailMerchantsType{
         }
 }
 
+export interface Merchant {
+    mchtCode: string;
+    mchtName: string;
+    status: MerchantStatus;
+    bizType: string;
+}
+
+export interface MerchantDetail {
+    mchtCode: string;
+    mchtName: string;
+    status: MerchantStatus;
+    bizType: string;
+    bizNo: string;
+    address: string;
+    phone: string;
+    email: string;
+    registeredAt: string;
+    updatedAt: string; 
+}
+
+export interface Payment {
+    paymentCode: string;
+    mchtCode: string;
+    amount: string;
+    currency: string;
+    payType: PayType;
+    status: PaymentStatus;
+    paymentAt: string;
+}
+
 const getpaymentList = (signal?: AbortSignal) => {
     return http.get<PaymentListType>('payments/list', {signal})
 }
@@ -82,8 +113,9 @@ export const useGetMerchantsList = () => {
 
 export const useGetDetailMerchants = (code:string) => {
     return useQuery({
-        queryKey: ['merchants', 'detail'],
+        queryKey: ['merchants', 'detail', code],
         queryFn: ({signal}) => getDetailMerchants({signal,code}).then(res => res.data),
         staleTime: FIVE_MINUTES,
+        enabled: !!code
     })
 }
