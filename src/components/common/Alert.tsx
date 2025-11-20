@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import styled from 'styled-components';
-import { useAlertStore } from '../../stores/useAlertStore';
+import { useAlertStore, type AlertType } from '../../stores/useAlertStore';
 import { IoIosWarning } from "react-icons/io";
 import { FaCheckCircle } from "react-icons/fa";
 
@@ -55,7 +55,7 @@ const Overlay = styled.div<{ $type: AlertType }>`
 const ModalContainer = styled.div<{ $type: AlertType }>`
   display: flex;
   background: white;
-  padding: 24px;
+  padding: 18px;
   border-radius: 8px;
   width: 400px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);

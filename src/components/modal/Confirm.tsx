@@ -1,8 +1,8 @@
 import { useModalStore } from "../../stores/useModalStore";
 import styled from "styled-components";
 import { AppImage } from "../../assets/images/images";
-import { useGetDetailMerchants } from "../../services/api";
 import { ConfirmButton, CancelButton } from "../common/Button";
+import { useAlertStore } from "../../stores/useAlertStore";
 
 interface ModalProps {
     title: string
@@ -28,13 +28,14 @@ const ConfirmModal = ({
     content,
     eventHandler
     }: ModalProps) => {
-  
+        
     const reset = useModalStore(p => p.reset)
+    const successAlert = useAlertStore((p) => p.showSuccess)
 
     const handleEvent = () => {
-        console.log('dd')
         eventHandler()
         reset()   
+        successAlert('삭제되었습니다.')
     }
 
     return(
