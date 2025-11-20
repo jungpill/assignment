@@ -106,7 +106,7 @@ const Dashboard = () => {
             </RowWrapper>
 
             <RowWrapper>
-            <PaymentHistoryTable/>
+            <PaymentHistoryTable limit={true}/>
             </RowWrapper>
             
         </DashboardContainer>

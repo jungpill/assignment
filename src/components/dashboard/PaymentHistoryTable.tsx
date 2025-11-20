@@ -4,11 +4,13 @@ import { openDetailModal } from "../modal/DetailModal";
 import { AppImage } from "../../assets/images/images";
 import { useNavigate } from "react-router-dom";
 
-const PaymentHistoryTable = () => {
+const PaymentHistoryTable = ({limit}: {limit:boolean}) => {
 
     const {data: totalAmountList, isLoading} = useGetMerchantsList()
 
     const navigate = useNavigate()
+
+    const sliceValue = limit ? 3 : totalAmountList?.data.length
 
     if(isLoading || !totalAmountList) return null;
 
@@ -33,7 +35,7 @@ const PaymentHistoryTable = () => {
             </TableHeader>
 
             <Body>
-                {totalAmountList.data.slice(0,3).map((r) => (
+                {totalAmountList.data.slice(0, sliceValue).map((r) => (
                 <DataRow key={r.mchtCode} onClick={() => showDetailModal(r.mchtCode)}>
                 <span>{r.mchtCode}</span>
                 <span>{r.mchtName}</span>
