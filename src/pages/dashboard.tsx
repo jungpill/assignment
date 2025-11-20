@@ -1,9 +1,9 @@
 import styled from "styled-components"
-import { useMemo, useState } from "react"
+import { useMemo} from "react"
 import PaymentCard from "../components/dashboard/PaymentCard"
 import { useGetPaymentList } from "../services/api"
 import Doughnutchart from '../components/dashboard/Doughnutchart'
-import type {PaymentStatus, PayType, PayLabel} from '../services/api'
+import type { PayType, PayLabel} from '../services/api'
 import PaymentHistoryTable from "../components/dashboard/PaymentHistoryTable"
 
 export type ChartItem = {

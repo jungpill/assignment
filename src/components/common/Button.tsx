@@ -10,6 +10,7 @@ export const ConfirmButton = styled.button`
     border-radius: 6px;
     white-space: nowrap;
     cursor: pointer;
+    border: none;
 `
 
 export const CancelButton = styled.button`

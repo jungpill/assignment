@@ -4,6 +4,7 @@ import { type MerchantStatus, type Merchant } from "../../services/api";
 import { useMemo, useState, useRef } from "react";
 import { AppImage } from "../../assets/images/images";
 import Menu from "./Menu";
+import { ConfirmButton } from "../common/Button";
 
 interface Props {
     active: MerchantStatus
@@ -42,7 +43,15 @@ const MerchantsListTable = ({
     return(
         <Container>
             <Title>
-                매장 관리
+                <span>
+                    매장 관리
+                </span>
+
+                <ConfirmButton
+                style={{width: '88px'}}
+                >
+                    매장 추가
+                </ConfirmButton>    
             </Title>
             <TableHeader>
                 <HeaderCell >코드</HeaderCell>

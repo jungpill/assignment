@@ -3,10 +3,17 @@ import styled from "styled-components";
 import { AppImage } from "../../assets/images/images";
 import { ConfirmButton, CancelButton } from "../common/Button";
 import { useAlertStore } from "../../stores/useAlertStore";
+import SelectDropdown from "../common/Dropdown";
+import LabelInput from "../common/Input";
+import { useState, useCallback } from "react";
 
-interface ModalProps {
+interface DeleteModalProps {
     title: string
     content: string
+    eventHandler: () => void
+}
+
+interface EditModalProps {
     eventHandler: () => void
 }
 
@@ -14,7 +21,7 @@ export const openDeleteModal = ({
     title,
     content,
     eventHandler
-    }: ModalProps) => {
+    }: DeleteModalProps) => {
     
     const { setField } = useModalStore.getState()
     
@@ -23,11 +30,22 @@ export const openDeleteModal = ({
     setField('children', <ConfirmModal title={title} content={content} eventHandler={eventHandler}/>)
 }
 
+export const openEditModal = ({
+    eventHandler
+    }: EditModalProps) => {
+
+    const { setField } = useModalStore.getState()
+    
+    setField('open', true)
+    setField('width', '440px')
+    setField('children', <EditModal eventHandler={eventHandler}/>)
+}
+
 const ConfirmModal = ({
     title,
     content,
     eventHandler
-    }: ModalProps) => {
+    }: DeleteModalProps) => {
         
     const reset = useModalStore(p => p.reset)
     const successAlert = useAlertStore((p) => p.showSuccess)
@@ -39,7 +57,7 @@ const ConfirmModal = ({
     }
 
     return(
-        <DetailModalContainer>
+        <Container>
             <Header>
                 <Title>{title}</Title>
                 <AppImage name="XIcon" onClick={reset} customStyle={{cursor: 'pointer'}}/>
@@ -63,11 +81,74 @@ const ConfirmModal = ({
                     취소
                 </CancelButton>
             </Footer>
-        </DetailModalContainer>
+        </Container>
     )
 }
 
-const DetailModalContainer = styled.div`
+const EditModal = ({
+    eventHandler
+    }: EditModalProps) => {
+
+    const reset = useModalStore(p => p.reset)
+
+    const [submitData, setSubmitData] = useState({
+        name: '',
+        status: '',
+
+    })
+
+    const testList = ['dd', 'dd2', 'dd44']
+    
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setSubmitData(prev => ({...prev,
+            [name]: value
+        }))
+    }
+      
+
+    return(
+        <Container>
+            <Header>
+                <Title>매장 등록</Title>
+                <AppImage name="XIcon" onClick={reset} customStyle={{cursor: 'pointer'}}/>
+            </Header>
+
+            <Body>
+                <LabelInput
+                label="매장명"
+                value={submitData.name}
+                name="name"
+                onChange={handleChange}
+                placeholder="매장명을 입력하세요"
+                />
+
+                <SelectDropdown 
+                options={testList}
+                onChange={() => console.log('dd')}
+                width="160px"
+                placeholder="상태"
+                />
+            </Body>
+
+            <Footer>
+                <ConfirmButton 
+                style={{width: 88}}
+                >
+                    등록
+                </ConfirmButton>
+                <CancelButton
+                style={{width: 88}}
+                onClick={reset}
+                >
+                    취소
+                </CancelButton>
+            </Footer>
+        </Container>
+    )
+}
+
+const Container = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;

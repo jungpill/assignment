@@ -3,10 +3,12 @@ import { useGetMerchantsList } from "../../services/api";
 import { openDetailModal } from "../modal/DetailModal";
 import { AppImage } from "../../assets/images/images";
 import { useNavigate } from "react-router-dom";
+import { useSidebarStore } from "../../stores/useSidebarStore";
 
 const PaymentHistoryTable = () => {
 
     const {data: totalAmountList, isLoading} = useGetMerchantsList()
+    const setMenu = useSidebarStore(p => p.setItem)
 
     const navigate = useNavigate()
 
@@ -16,11 +18,16 @@ const PaymentHistoryTable = () => {
         openDetailModal(code)
     }
 
+    const handleNavigate = () => {
+        navigate('/merchants-list')
+        setMenu('매장관리')
+    }
+
     return(
         <Container>
             <Title>
                 관리 매장
-                <MoreButton onClick={() => navigate('/merchants-list')}>
+                <MoreButton onClick={handleNavigate}>
                     더보기
                     <AppImage name='ArrowIcon'/>
                 </MoreButton>
@@ -39,7 +46,6 @@ const PaymentHistoryTable = () => {
                 <span>{r.mchtName}</span>
                 <span>{r.status}</span>
                 <span>{r.bizType}</span>
-                
                 </DataRow>
                 ))}
             </Body>

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useRef, useEffect } from "react";
-import { openDeleteModal } from "../modal/Confirm";
+import { openDeleteModal, openEditModal } from "../modal/Confirm";
 
 interface Props {
     show: boolean
@@ -51,10 +51,10 @@ const Menu = ({
   });
     }
 
-    // const openEditModal = (e:React.MouseEvent) => {
-    //     e.stopPropagation
-    //     openConfirmModal({title: '선택 매장을 수정합니다.', content: '정말 삭제하시겠습니까?', eventHandler: () => console.log('dd')})
-    // }
+    const handleEditModal = (e:React.MouseEvent) => {
+        e.stopPropagation
+        openEditModal({eventHandler: () => console.log('s')})
+    }
 
     return(
         <Container
@@ -64,9 +64,9 @@ const Menu = ({
             <Text onClick={handleDeleteModal}>
                 삭제하기
             </Text>
-            {/* <Text onClick={openEditModal}>
+            <Text onClick={handleEditModal}>
                 수정하기
-            </Text> */}
+            </Text>
         </Container>
     )
 }
@@ -83,8 +83,8 @@ const Container = styled.div<{$show: boolean}>`
     opacity: ${(props) => props.$show ? 1 : 0};
     background: #fff;
     border-radius: 8px;
-    top: 30px;
-    right: 60%;
+    top: 20px;
+    right: 75%;
     width: 100px;
     box-sizing: border-box;
     box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.1);
