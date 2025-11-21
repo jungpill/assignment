@@ -29,8 +29,8 @@ React, TypeScript, Zustand, react-query, react-chartjs-2, Styled-Component
 2. Zustand
  - 짧은 시간내에 개발을 진행해야 하고 작은 규모의 사이트가 될 예정이기에 보일러 플레이트가 적고 가벼우며 사용이 간편한 Zustand를 사용했습니다. 
 
-3. react-quert
- - API호출 횟수가 많지 않을거같아 사용을 고민했지만 
+3. react-query
+ - 자동 캐싱으로 대시보드에서 동일한 API를 여러 번 호출할 필요가 없어 네트워크 요청을 최소화하기 위하여 사용하였습니다.
 
 4. react-chartjs-2
  - 별도 복잡한 설정 없이도 도넛/바/원형 등 다양한 차트를 쉽게 구성할 수 있어 과제 기간 내 효율적인 구현이 가능하다고 판단했습니다.
