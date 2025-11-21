@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useRef, useEffect } from "react";
 import { openDeleteModal } from "../modal/Confirm";
-import { type Merchant } from "../../services/api";
 
 interface Props {
     show: boolean
@@ -41,15 +40,15 @@ const Menu = ({
     }, [show, onClose])
 
     const handleDeleteModal = (e:React.MouseEvent) => {
-        e.stopPropagation
+        e.stopPropagation()
         openDeleteModal({
         title: '선택 매장이 삭제됩니다',
         content: '정말 삭제하시겠습니까?',
         eventHandler: () => {
-      handleDeleteMerchant(mchtCode);  
-      onClose();           
-    },
-  });
+        handleDeleteMerchant(mchtCode);  
+        onClose();           
+        },
+    });
     }
 
     // const handleEditModal = (e:React.MouseEvent) => {

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useGetPaymentList } from "../../services/api";
 
 interface Props {
     title: string

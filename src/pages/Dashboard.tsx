@@ -17,21 +17,6 @@ const Dashboard = () => {
 
     const {data: totalAmountList, isLoading} = useGetPaymentList()
 
-    const counts = {
-        ONLINE: 0,
-        DEVICE: 0,
-        MOBILE: 0,
-        VACT: 0,
-        BILLING: 0,
-    };
-
-    const statusCounts = {
-        SUCCESS: 0,
-        CANCELLED: 0,
-        PENDING: 0,
-        FAILED: 0,
-    };
-
     // 전체 거래내역을 통한 총 결제 금액, 횟수, 성공률, 취소 비율, 계산 및 차트에 사용될 데이터 가공
     const status = useMemo(() => {
         if (!totalAmountList) return { 
@@ -48,6 +33,21 @@ const Dashboard = () => {
         let totalAmount = 0;
         let successCount = 0;
         let canceledCount = 0;
+
+        const counts = {
+            ONLINE: 0,
+            DEVICE: 0,
+            MOBILE: 0,
+            VACT: 0,
+            BILLING: 0,
+        };
+
+        const statusCounts = {
+            SUCCESS: 0,
+            CANCELLED: 0,
+            PENDING: 0,
+            FAILED: 0,
+        };
 
         totalAmountList.data.forEach((payment) => {
             totalAmount += Number(payment.amount);
@@ -115,7 +115,7 @@ const Dashboard = () => {
 
             <RowWrapper>
             <Doughnutchart
-                chartData={status.doughnutChart as ChartItem[]}
+                chartData={status.doughnutChart}
             />
 
             <PieChart

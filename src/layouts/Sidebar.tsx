@@ -1,12 +1,13 @@
 import styled from "styled-components";
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useSidebarStore, type Menu } from "../stores/useSidebarStore";
+import { useNavigate, } from "react-router-dom";
+import { MdDashboardCustomize } from "react-icons/md";
+import { SiHomeassistantcommunitystore } from "react-icons/si";
+import { TiCreditCard } from "react-icons/ti";
 
 const MENUS = [
-  { label: "대시보드", path: "/" },
-  { label: "매장관리", path: "/merchants-list" },
-  { label: "결제내역", path: "/payment-list" },
+  { label: "대시보드", path: "/", icon: <MdDashboardCustomize /> },
+  { label: "매장관리", path: "/merchants-list",icon: <SiHomeassistantcommunitystore /> },
+  { label: "결제내역", path: "/payment-list",icon: <TiCreditCard />},
 ] as const;
 
 const Sidebar = () => {
@@ -28,6 +29,7 @@ const Sidebar = () => {
             $selected={selected}
             onClick={() => handleClick(m.path)}
           >
+            {m.icon}
             {m.label}
           </MenuItem>
         );
@@ -57,4 +59,5 @@ const MenuItem = styled.div<{ $selected: boolean }>`
     box-sizing: border-box;
     color: ${(props) => (props.$selected ? "#3B82F6" : "#000")};
     background: ${(props) => (props.$selected ? "#EBF2FE" : "#fff")};
+    gap: 12px;
 `;

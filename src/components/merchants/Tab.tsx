@@ -16,9 +16,9 @@ const Tab = ({
     
     return(
         <Container>
-            {summary.map((item, index) => (
+            {summary.map((item) => (
                 <Item 
-                key={index} 
+                key={item.status} 
                 $active={item.status === active}
                 onClick={() => setActive(item.status)}
                 >
