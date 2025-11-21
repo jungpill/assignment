@@ -5,9 +5,9 @@ import { SiHomeassistantcommunitystore } from "react-icons/si";
 import { TiCreditCard } from "react-icons/ti";
 
 const MENUS = [
-  { label: "대시보드", path: "/", icon: <MdDashboardCustomize /> },
-  { label: "매장관리", path: "/merchants-list",icon: <SiHomeassistantcommunitystore /> },
-  { label: "결제내역", path: "/payment-list",icon: <TiCreditCard />},
+  { label: "대시보드", path: "/", icon: <MdDashboardCustomize size={20}/> },
+  { label: "매장관리", path: "/merchants-list",icon: <SiHomeassistantcommunitystore size={20}/> },
+  { label: "결제내역", path: "/payment-list",icon: <TiCreditCard size={20}/>},
 ] as const;
 
 const Sidebar = () => {
