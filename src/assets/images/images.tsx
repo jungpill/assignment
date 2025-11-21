@@ -7,7 +7,7 @@ import MailIcon from './mail_icon.svg?react'
 import JobIcon from './job_icon.svg?react'
 import ArrowIcon from './ArrowRight_Icon.svg?react'
 import MenuIcon from './menu_icon.svg?react'
-import MagnifyGlass from './magnifyGlass_Icon.svg?react'
+import MagnifyGlass from './magnifyGlass_icon.svg?react'
 
 const ICONS = {
   XIcon: xIcon,
@@ -17,7 +17,7 @@ const ICONS = {
   JobIcon:JobIcon,
   ArrowIcon: ArrowIcon,
   MenuIcon: MenuIcon,
-  MagnifyGlass:MagnifyGlass
+  MagnifyGlass: MagnifyGlass
 } as const;
 
 type Props = {

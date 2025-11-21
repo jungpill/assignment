@@ -49,7 +49,7 @@ const PaymentHistoryTable = ({
 
             <Body>
                 {totalAmountList.data.slice(0,sliceValue).map((r) => (
-                <DataRow key={r.mchtCode} onClick={() => showDetailModal(r.mchtCode)}>
+                <DataRow key={`${r.paymentCode}-${r.paymentAt}`} onClick={() => showDetailModal(r.mchtCode)}>
                 <span>{r.mchtCode}</span>
                 <span>{Number(r.amount).toLocaleString()}</span>
                 <span>{r.payType}</span>
