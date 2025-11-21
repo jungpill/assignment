@@ -100,6 +100,7 @@ const MerchantsListTable = ({
                     </span>
                 </DataRow>
                  ))}
+                 {filteredMerchants.length === 0 && <NoSearchResult>검색 결과가 없습니다.</NoSearchResult>}
             </Body>
         </Container>
     )
@@ -189,4 +190,12 @@ const SearchInput = styled.input`
     &::placeholder {
         color: #B3B3B3;
     }
+`
+
+const NoSearchResult = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    color: #6B7280;
 `
