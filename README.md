@@ -6,12 +6,17 @@
 
 2. npm install
 
-3. npm run dev 
+3. env생성
+VITE_API_BASE_URL=https://recruit.paysbypays.com/api/v1
+
+4. npm run dev 
 
 vite + react의 기본 포트인 5173을 사용중입니다.
+서버 실행 후 브라우저가 자동으로 켜지지 않는경우에 
+http://localhost:5173 을 통해 접속 부탁드립니다.
 
-.env 
-VITE_API_BASE_URL=https://recruit.paysbypays.com/api/v1
+5173포트가 이미 사용중인 경우 터미널에 표시되는 주소로 접속 부탁드립니다. 
+
 
 사용된 기술 
 

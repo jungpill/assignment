@@ -6,10 +6,10 @@ import { Pie } from "react-chartjs-2";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const CHART_COLORS = [
-    '#35b0e6', 
-    '#EF4444', 
+    '#35b0e6',  
     '#F59E0B', 
     '#6B7280', 
+    '#EF4444',
 ];
 
 export interface StatusChartItem {
